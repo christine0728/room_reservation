@@ -4,11 +4,7 @@ const con = require("../db/connection");
 const argon2  = require("argon2");
 
 exports.getIndex = (req, res) => {
-
-
-    res.render("index",);
-
- 
+  res.render("index",); 
 };
 
 exports.getRoom = (req, res)=>{
@@ -35,7 +31,9 @@ exports.getUser = (req, res)=>{
 
     res.render("users", {result,  alert });
   });
-};exports.getReservation = (req, res) => {
+};
+
+exports.getReservation = (req, res) => {
   const alert = req.query.alert || "";
   const sql =
     "SELECT reservations.*, rooms.room_number, rooms.price, users.username " +
@@ -112,10 +110,10 @@ exports.loginUser = (req, res)=>{
 
 
 exports.registerUser = async (req, res) => {
-  const { username, email, password, confirmPassword } = req.body;
+  const { firstname, lastname, birthday, gender, address, contact_no, username, email, password, confirmPassword } = req.body;
   const hashpass = await argon2.hash(password);
  
-  if (!username || !email || !password || !confirmPassword) {
+  if (!firstname || !lastname || !birthday || !gender || !address || !contact_no || !username || !email || !password || !confirmPassword) {
     req.flash('error', 'All fields are required.');
     return res.render('register', { error: req.flash('error') });
   }
@@ -147,8 +145,8 @@ exports.registerUser = async (req, res) => {
       return res.render('register', { error: req.flash('error') });
     }
 
-    const insertSql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
-    const insertValues = [username, email, hashpass];
+    const insertSql = "INSERT INTO users (firstname, lastname, birthday, gender, address, contact_no, username, email, password, usertype) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    const insertValues = [firstname, lastname, birthday, gender, address, contact_no, username, email, hashpass, 'client'];
 
     con.query(insertSql, insertValues, (insertErr, insertResult) => {
       if (insertErr) {
