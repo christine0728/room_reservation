@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - codingnepalweb.com -->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{{ asset('sweetalert/sweetalert.min.js') }}"></script>
+
+    <link rel="stylesheet" href="/css/main.css" />
+</head>
+<body>
+    <center>
+
+      <br> <br>
+    <div class="wrapper">
+        <h2>Registration</h2>
+        <% if (error && error.length > 0) { %>
+          <div class="alert alert-danger">
+            <%= error[0] %>
+          </div>
+        <% } %>
+      
+        <form action="/register-user" method="post" class="form2">
+            
+              <div class="input-box">
+                <input type="text" id="username" name="username" placeholder="Username" required>
+              </div>
+              <div class="input-box">
+                <input type="text" id="email" name="email" placeholder="Enter your email" required>
+              </div>
+              <div class="input-box">
+                <input type="password" id="password" name="password" placeholder="Create password" required>
+              </div>
+              <div class="input-box">
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm password" required>
+              </div>
+              
+          
+          <div class="input-box button">
+            <input type="Submit" value="Register Now">
+          </div>
+          <div class="text">
+            <h3>Already have an account? <a href="#">Login now</a></h3>
+          </div>
+        </form>
+      </div>
+    </center>
+</body>
+</html>
