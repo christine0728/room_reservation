@@ -19,7 +19,6 @@ const isAdmin = (req, res, next) => {
   }
 };
 
-
 router.get("/", islogin ,mainCon.getIndex);
 router.get("/index",islogin , (req, res) => {
   res.redirect("/");
@@ -37,6 +36,11 @@ router.get('/register', (req, res) => {
   const error = req.flash('success') || []; 
   res.render('register', { success,error });
 });
+
+router.get('/about_us', (req, res) => {  
+  res.render('about_us');
+});
+
 
 
 // client side

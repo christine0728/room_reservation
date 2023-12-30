@@ -1,0 +1,803 @@
+/*=============== GOOGLE FONTS ===============*/
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap");
+
+/*=============== VARIABLES CSS ===============*/
+:root {
+  --header-height: 3.5rem;
+
+  /*========== Colors ==========*/
+  /*Color mode HSL(hue, saturation, lightness)*/
+  --black-color: hsl(0, 0%, 0%);
+  --black-color-light: hsl(220, 24%, 15%);
+  --black-color-lighten: hsl(220, 20%, 18%);
+  --white-color: #fff;
+  --body-color: hsl(220, 100%, 97%);
+  
+
+  /*========== Font and typography ==========*/
+  /*.5rem = 8px | 1rem = 16px ...*/
+  --body-font: "Poppins", sans-serif;
+  --normal-font-size: .938rem;
+
+  /*========== Font weight ==========*/
+  --font-regular: 400;
+  --font-semi-bold: 600;
+
+  /*========== z index ==========*/
+  --z-tooltip: 10;
+  --z-fixed: 100;
+}
+
+/*========== Responsive typography ==========*/
+@media screen and (min-width: 1024px) {
+  :root {
+    --normal-font-size: 1rem;
+  }
+}
+
+/*=============== BASE ===============*/
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+  background-color: var(--body-color);
+  
+}
+
+ul {
+  list-style: none;
+  /* Color highlighting when pressed on mobile devices */
+  /*-webkit-tap-highlight-color: transparent;*/
+}
+
+a {
+  text-decoration: none;
+}
+
+/*=============== REUSABLE CSS CLASSES ===============*/
+.container {
+  max-width: 1120px;
+  margin-inline: 1.5rem;
+}
+
+/*=============== HEADER ===============*/
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--black-color);
+  box-shadow: 0 2px 16px hsla(222, 17%, 30%, 0.3), 0 0 10px rgba(0, 0, 0, 0.2); 
+  z-index: var(--z-fixed);
+}
+
+
+/*=============== NAV ===============*/
+.nav {
+  height: var(--header-height);
+}
+
+.nav__logo, 
+.nav__burger, 
+.nav__close {
+  color: var(--white-color);
+}
+
+.nav__data {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav__logo {
+  display: inline-flex;
+  align-items: center;
+  column-gap: .25rem;
+  font-weight: var(--font-semi-bold);
+
+}
+
+.nav__logo i {
+  font-weight: initial;
+  font-size: 1.25rem;
+}
+
+.nav__toggle {
+  position: relative;
+  width: 32px;
+  height: 32px;
+}
+
+.nav__burger, 
+.nav__close {
+  position: absolute;
+  width: max-content;
+  height: max-content;
+  inset: 0;
+  margin: auto;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: opacity .1s, transform .4s;
+}
+
+.nav__close {
+  opacity: 0;
+}
+
+@media screen and (max-width: 1118px) {
+  .nav__menu {
+    position: absolute;
+    left: 0;
+    top: 2.5rem;
+    width: 100%;
+    height: calc(100vh - 3.5rem);
+    overflow: auto;
+    pointer-events: none;
+    opacity: 0;
+    transition: top .4s, opacity .3s;
+  }
+  .nav__menu::-webkit-scrollbar {
+    width: 0;
+  }
+  .nav__list {
+    background-color: var(--black-color);
+    padding-top: 1rem;
+  }
+}
+
+.nav__link {
+  color: var(--white-color);
+  background-color: var(--black-color);
+  font-weight: var(--font-semi-bold);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color .3s;
+}
+
+.nav__link:hover {
+  background-color:var(--black-color);
+}
+
+
+.show-menu {
+  opacity: 1;
+  top: 3.5rem;
+  pointer-events: initial;
+}
+
+
+.show-icon .nav__burger {
+  opacity: 0;
+  transform: rotate(90deg);
+}
+.show-icon .nav__close {
+  opacity: 1;
+  transform: rotate(90deg);
+}
+
+/*=============== DROPDOWN ===============*/
+.dropdown__item {
+  cursor: pointer;
+}
+
+.dropdown__arrow {
+  font-size: 1.25rem;
+  font-weight: initial;
+  transition: transform .4s;
+}
+
+.dropdown__link, 
+.dropdown__sublink {
+  padding: 1.25rem 1.25rem 1.25rem 2.5rem;
+  color: var(--white-color);
+  background-color: var(--black-color);
+  display: flex;
+  align-items: center;
+  column-gap: .5rem;
+  font-weight: var(--font-semi-bold);
+  transition: background-color .3s;
+}
+
+.dropdown__link i, 
+.dropdown__sublink i {
+  font-size: 1.25rem;
+  font-weight: initial;
+}
+
+.dropdown__link:hover, 
+.dropdown__sublink:hover {
+  background-color: #000000;
+}
+
+.dropdown__menu, 
+.dropdown__submenu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .4s ease-out;
+}
+
+
+.dropdown__item:hover .dropdown__menu, 
+.dropdown__subitem:hover > .dropdown__submenu {
+  max-height: 1000px;
+  transition: max-height .4s ease-in;
+}
+
+
+.dropdown__item:hover .dropdown__arrow {
+  transform: rotate(180deg);
+}
+
+/*=============== DROPDOWN SUBMENU ===============*/
+.dropdown__add {
+  margin-left: auto;
+}
+
+.dropdown__sublink {
+  background-color: var(--black-color);
+}
+
+/*=============== BREAKPOINTS ===============*/
+
+@media screen and (max-width: 340px) {
+  .container {
+    margin-inline: 1rem;
+  }
+
+  .nav__link {
+    padding-inline: 1rem;
+  }
+}
+
+/* For large devices */
+@media screen and (min-width: 1118px) {
+  .container {
+    margin-inline: auto;
+  }
+
+  .nav {
+    height: calc(var(--header-height) + 2rem);
+    display: flex;
+    justify-content: space-between;
+  }
+  .nav__toggle {
+    display: none;
+  }
+  .nav__list {
+    height: 100%;
+    display: flex;
+    column-gap: 3rem;
+  }
+  .nav__link {
+    height: 100%;
+    padding: 0;
+    justify-content: initial;
+    column-gap: .25rem;
+  }
+  .nav__link:hover {
+    background-color: #000000;
+  }
+
+  .dropdown__item, 
+  .dropdown__subitem {
+    position: relative;
+  }
+
+  .dropdown__menu, 
+  .dropdown__submenu {
+    max-height: initial;
+    overflow: initial;
+    position: absolute;
+    left: 0;
+    top: 6rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s, top .3s;
+  }
+
+  .dropdown__link, 
+  .dropdown__sublink {
+    padding-inline: 1rem 3.5rem;
+  }
+
+  .dropdown__subitem .dropdown__link {
+    padding-inline: 1rem;
+  }
+
+  .dropdown__submenu {
+    position: absolute;
+    left: 100%;
+    top: .5rem;
+  }
+
+  /* Show dropdown menu */
+  .dropdown__item:hover .dropdown__menu {
+    opacity: 1;
+    top: 5.5rem;
+    pointer-events: initial;
+    transition: top .3s;
+  }
+
+
+  .dropdown__subitem:hover > .dropdown__submenu {
+    opacity: 1;
+    top: 0;
+    pointer-events: initial;
+    transition: top .3s;
+  }
+}
+
+
+
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  background-color: rgb(0, 0, 0);
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  width: 100%;
+  z-index: 1000; 
+}
+
+
+.copyright-symbol {
+  font-size: 15px;
+
+}
+
+
+/* Add this CSS to your existing stylesheet or create a new one */
+@keyframes rotateLogo {
+  0% { transform: rotateY(0deg); }
+  100% { transform: rotateY(360deg); }
+}
+
+.nav__logo:hover .logo {
+  animation: none; /* Stop the rotation animation on hover */
+}
+
+.logo {
+  width: 50px; /* Adjust the logo size as needed */
+  height: auto;
+  border-radius: 50%; /* Make the logo circular */
+  /* Pseudo-3D Effect */
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+  /* Additional Effects */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.1); /* Scale up the logo on hover */
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5); /* Adjust shadow on hover */
+}
+
+
+
+
+/* .hero-content p {
+  font-size: 1.2em;
+  margin-top: 18px;
+} */
+
+
+.image-section {
+  padding: 40px 0;
+  text-align: center;
+
+  
+}
+
+.image-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  border-radius: 30px;
+  gap: 20px;
+  
+}
+
+.lightbox-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  cursor: pointer;
+  border-radius: 30px;
+}
+
+.video-section {
+  padding: 50px 0;
+  text-align: center;
+}
+
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* Adjust this value for the aspect ratio of your video */
+  overflow: hidden;
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.video-embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+
+
+.header .logo-container {
+  position: fixed;
+}
+
+
+
+
+.hoverable-image {
+  transition: transform 0.3s ease-in-out;
+  border-radius: 30px;
+}
+
+.hoverable-image:hover {
+  transform: scale(1.1);
+  border-radius: 30px;
+  
+  /* Adjust the scale factor to your liking */
+}
+
+/* Add this to your existing CSS or create a new CSS file */
+.glow-image {
+  transition: transform 0.3s ease-in-out, box-shadow 0.5s ease-in-out;
+}
+
+.glow-image:hover {
+  transform: scale(1.1);
+  /* Adjust the scale factor to your liking */
+  box-shadow: 0 0 10px  #7171d7;
+  /* Adjust the color and intensity of the glow */
+  animation: glow 1s infinite alternate;
+  border-radius: 30px;
+}
+
+@keyframes glow {
+  to {
+      box-shadow: 0 0 20px  #7171d7;
+      /* Adjust the color and intensity of the glow */
+  }
+}
+
+#typewriter-heading {
+  font-size: 2.5em; /* Adjust the font size */
+  margin-bottom: 10px;
+}
+
+#typewriter-paragraph {
+  font-size: 1.2em; /* Adjust the font size */
+  margin-bottom: 20px;
+}
+
+.welcome-text {
+  margin-bottom: 20px; /* Add margin to separate "Generations" and "Welcome" */
+}
+
+
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Adjust the overlay color and opacity */
+}
+
+.hero-content h1,
+.hero-content p {
+  font-size: 2em; /* Adjust the font size as needed */
+  margin-bottom: 10px;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f9e6b3;  /* Adjust the button background color */
+  color: #060606; /* Adjust the button text color */
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #ff5722; 
+
+}
+
+
+
+
+
+.slick-carousel {
+  position: relative;
+  overflow: hidden;
+  margin: 20px;
+}
+
+
+
+.slick-carousel img {
+  max-width: 100%;
+  height: auto;
+  transition: transform 0.3s ease-in-out;
+ 
+  border: 2px solid #fff; /* Add a border and adjust the color as needed */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add a box shadow and adjust as needed */
+}
+
+.slick-carousel img:hover {
+  transform: scale(1.1); /* Adjust the scale factor to your liking */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Adjust the shadow on hover */
+  border-color: #3498db; /* Change the border color on hover */
+}
+
+
+
+.slick-prev,
+.slick-next {
+  font-size: 20px;
+  color: #fff;
+  z-index: 1;
+}
+
+.slick-prev:hover,
+.slick-prev:focus,
+.slick-next:hover,
+.slick-next:focus {
+  color: #ababde;
+}
+
+.slick-prev {
+  left: 10px;
+}
+
+.slick-next {
+  right:3.2%;
+}
+
+.slick-dots {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slick-dots li {
+  list-style: none;
+  margin: 0 5px;
+}
+
+.slick-dots button {
+  font-size: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  margin: 0;
+  opacity: 0.7;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.slick-dots button:hover,
+.slick-dots button:focus {
+  opacity: 1;
+}
+
+
+
+
+.more-button {
+  display: inline-block;
+  padding: 10px 55px;
+  margin-top: 20px;
+  text-decoration: none;
+  color: #fff;
+  background-color: #007BFF; 
+  border-radius: 25px;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+}
+
+.more-button:hover {
+  background-color: #ff5722; 
+}
+
+
+/* Add this CSS code to your existing stylesheet */
+@keyframes rotateLogo {
+  0% { transform: rotateY(0deg); }
+  100% { transform: rotateY(360deg); }
+}
+
+.logo {
+  animation: rotateLogo 5s infinite linear;
+  transition: transform 0.3s ease-in-out;
+}
+
+.logo:hover {
+  transform: scale(1.1);
+}
+
+
+
+/* Add this CSS to your existing stylesheet or create a new one */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+
+
+
+
+
+.python-section {
+  width:80%;
+  margin: 50px auto;
+  overflow: hidden; /* Clear the float */
+}
+
+.python-image {
+  float: right;
+  margin: 0 0 20px 20px;
+  max-width: 300px; /* Adjust the width as needed */
+  height: auto;
+}
+
+.python-text {
+  text-align: justify;
+}
+
+
+
+.python-image2 {
+  float: left;
+  margin: 0 0 20px 20px;
+  max-width: 300px; /* Adjust the width as needed */
+  height: auto;
+}
+
+
+.hero-section {
+  position: relative;
+  text-align: center;
+  padding: 100px 20px;
+  color: #f9e6b3;
+  font-weight: bold;
+}
+
+.hero-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../static/images/recipe1.jpg'); 
+  background-size: cover;
+  background-position: center;
+  filter: blur(8px);
+  -webkit-filter: blur(4px);
+  z-index: -1;
+}
+
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-content h1 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+.hero-content p {
+  font-size: 1.2em;
+  margin-bottom: 30px;
+}
+
+
+
+
+
+
+.logo {
+  width: 50px; /* Adjust the logo size as needed */
+  height: auto;
+  border-radius: 50%; /* Make the logo circular */
+  /* Pseudo-3D Effect */
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+  /* Additional Effects */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.1); /* Scale up the logo on hover */
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5); /* Adjust shadow on hover */
+}
+
+.hero-content {
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1; /* Ensure hero content is below the logo */
+  /* Add any necessary styling */
+  margin-left: 70px; /* Adjust the margin as needed based on the logo size */
+}
+
+
+
+
+.logo{
+  height: 200px;
+  width: 200px;
+  margin-left:230px;
+}
+
+
+
+.lightbox-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* Styles for the lightbox image */
+.lightbox-image {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 10px;
+}
+
+/* Styles for the close button */
+.lightbox-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  color: #fff;
+  cursor: pointer;
+}
