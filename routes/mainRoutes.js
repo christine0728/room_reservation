@@ -1,28 +1,21 @@
 const router = require("express").Router();
 const mainCon = require("../controllers/mainController");
 
-const islogin = (req, res, next) => {
-  // Check if the user is authenticated (adjust this based on your authentication logic)
-
+const islogin = (req, res, next) => {  
   if (req.session && req.session.user) {
-    console.log(req.session.user);
-    // User is authenticated, proceed to the next middleware or route handler
+    console.log(req.session.user); 
     next();
-  } else {
-    // User is not authenticated, redirect to the login page
+  } else { 
     console.log("Redirecting to login");
     res.redirect("/login");
   }
 };
+
 const isAdmin = (req, res, next) => {
-  if (req.session.user && req.session.user.usertype === 'admin') {
-    // User is an admin, allow access
+  if (req.session.user && req.session.user.usertype === 'admin') { 
     next();
-  } else {
-    // User is not an admin, deny access
-    res.status(403).render('access-denied', { message: 'You do not have permission to access this page. Only admins are allowed.' });
-
-
+  } else { 
+    res.status(403).render('access-denied', { message: 'You do not have permission to access this page. Only admins are allowed.' });  
   }
 };
 
@@ -31,23 +24,20 @@ router.get("/", islogin ,mainCon.getIndex);
 router.get("/index",islogin , (req, res) => {
   res.redirect("/");
 });
-router.get("/login", (req, res) => {
-  const error = req.flash('error') || []; // Use 'error' instead of 'success'
 
-  res.render("login", { error }); // Pass the error variable as an object
+router.post("/login-user",  mainCon.loginUser);
+router.get("/login", (req, res) => {
+  const error = req.flash('error') || [];  
+  res.render("login", { error }); 
 });
 
-router.get('/register', (req, res) => {
-  // Get flash messages
+router.post("/register-user", mainCon.registerUser);
+router.get('/register', (req, res) => { 
   const success = req.flash('success') || [];
-  const error = req.flash('success') || [];
-
-  // Render the view with flash messages
+  const error = req.flash('success') || []; 
   res.render('register', { success,error });
 });
 
-router.post("/login-user",  mainCon.loginUser);
-router.post("/register-user", mainCon.registerUser);
 
 // client side
 router.get('/home/:client_id', mainCon.home);
@@ -58,13 +48,6 @@ router.get("/view_reservations/:client_id", mainCon.viewReservations);
 
 // admin sides
 router.get("/room", mainCon.getRoom);
-  
-router.get("/logout", (req, res) => {
-  req.session.destroy();
-  res.redirect('/');
-});
-
-
 //rooms
 router.get("/room", mainCon.getRoom);
 router.post("/insert-room", mainCon.postInsert);
@@ -75,5 +58,13 @@ router.get("/users", mainCon.getUser);
 
 //reservations
 router.get("/reservations", mainCon.getReservation);
- router.post("/update-reservation", mainCon.updateStatus);
+router.post("/update-reservation", mainCon.updateStatus);
+  
+router.get("/logout", (req, res) => {
+  req.session.destroy();
+  res.redirect('/');
+});
+
+
+
 module.exports = router;
