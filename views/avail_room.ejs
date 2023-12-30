@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/main.css?version=4" />
+    <title>Avail Room</title>
+</head>
+<body>
+    <form action="/add_reservation" method="post">
+        <% results1.forEach(res1 => { %>
+            <div class="row">
+                <div class="col-12">
+                    <h1>Client Information</h1>
+                </div>
+                <input type="hidden" name="client_id" value="<%= res1.id %>" readonly> 
+                <div class="col-6">
+                    <b>Firstname: <input type="text" name="firstname" value="<%= res1.firstname %>" readonly></b>
+                </div>
+                <div class="col-6">
+                    <b>Lastname: <input type="text" name="lastname" value="<%= res1.lastname %>" readonly></b> 
+                </div>
+                <div class="col-6">
+                    <b>Birthday: <input type="text" name="birthday" value="<%= res1.birthday %>" readonly></b> 
+                </div>
+                <div class="col-6">
+                    <b>Gender: <input type="text" name="gender" value="<%= res1.gender %>" readonly></b> 
+                </div>
+                <div class="col-6">
+                    <b>Address: <input type="text" name="address" value="<%= res1.address %>" readonly></b> 
+                </div>
+                <div class="col-6">
+                    <b>Contact no.: <input type="text" name="contact_no" value="<%= res1.contact_no %>" readonly></b> 
+                </div>
+                <div class="col-6">
+                    <b>Email: <input type="text" name="email" value="<%= res1.email %>" readonly></b> 
+                </div>
+            </div>
+        <% }); %>
+        <hr>
+        <% results2.forEach(res2 => { %>
+            <div class="row">
+                <div class="col-12">
+                    <h1>Room Information</h1>
+                </div>
+                <input type="hidden" name="room_id" value="<%= res2.room_id %>" readonly>
+                <div class="col-6">
+                    <b>Room number: <input type="text" name="room_num" value="<%= res2.room_number %>" readonly></b> 
+                </div>
+                <div class="col-6">
+                    <b>Capacity: <input type="text" name="capacity" value="<%= res2.capacity %>" readonly></b>  
+                </div>
+                <div class="col-6">
+                    <b>Amenities: <input type="text" name="amenities" value="<%= res2.amenities %>" readonly></b> 
+                </div>
+                <div class="col-6">
+                    <b>Price: <input type="text" name="price" value="<%= res2.price %>" readonly></b> 
+                </div>
+            </div>
+        <% }); %>
+        <hr>
+        <div class="row">
+            <div class="col-12">
+                <h1>Reservation Details</h1>
+            </div>
+            <div class="col-6">
+                Start date: <input type="date" name="start_date">
+            </div>
+            <div class="col-6">
+                End date: <input type="date" name="end_date">
+            </div>
+            <div class="col-12">
+                <input type="submit" name="add_reservation" value="Add Reservation">
+            </div>
+        </div>
+    </form>
+</body>
+</html>
