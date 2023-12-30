@@ -48,20 +48,14 @@ router.post("/login-user",  mainCon.loginUser);
 router.post("/register-user", mainCon.registerUser);
 
 router.get("/room", mainCon.getRoom);
-router.post("/insert-post", mainCon.insertPost);
-router.post("/update-post", mainCon.updatePost);
-router.get("/view-post/:id", mainCon.viewPost);
 
-
-router.get("/add-post",isAdmin, islogin , mainCon.addPost);
 
 router.get("/logout", (req, res) => {
   req.session.destroy();
   res.redirect('/');
 });
 
-router.get("/edit-post/:id", isAdmin, mainCon.editPost);
-router.get("/delete-post/:id", isAdmin, mainCon.deletePost);
+
 
 //rooms
 router.get("/room", mainCon.getRoom);
@@ -73,4 +67,5 @@ router.get("/users", mainCon.getUser);
 
 //reservations
 router.get("/reservations", mainCon.getReservation);
+ router.post("/update-reservation", mainCon.updateStatus);
 module.exports = router;

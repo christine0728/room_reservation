@@ -52,8 +52,7 @@
             <% if (alert) { %>
                 <div class="alert alert-info"><%= alert %></div>
             <% } %> <br>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAdd">+ Add Room</button>
-
+    
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
@@ -96,12 +95,12 @@
                                 <% } %>
                             </td>
                             <td>
-                                <a href="#" class="btn-edit" data-toggle="modal" data-id="<%= reservation.id %>" data-target="#modalStatus">
-                                    <button type="button" class="btn btn-success rounded">
-                                        <i style="color: white; font-size: 12px;" class="fa fa-edit"></i>
-                                    </button>
+                              
+                                <a href="#" class="btn btn-success rounded" data-bs-toggle="modal" data-bs-target="#modalAdd" data-reservation-id="<%= reservation.reservation_id %>">
+                                    <i style="color: white; font-size: 12px;" class="fa fa-edit"></i>
                                 </a>
-                                <a href="#"  class="btn btn-primary rounded" data-bs-toggle="modal" data-bs-target="#modalStatus">
+
+                                <a href="#"  class="btn btn-primary rounded"  data-bs-toggle="modal" data-bs-target="#modalAdd">
                                     <i style="color: white; font-size: 12px;" class="fa fa-eye"></i>
                                 </a>
                             </td>
@@ -134,59 +133,47 @@
 
 </body>
 </html>
-<div class="modal fade" id="modalStatus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-right modal-dialog-bottom modal-dialog-notify modal-dialog-info" role="document">
-      <!-- Content -->
-        <div class="modal-content">
-          <!-- Header -->
-          <div class="modal-header bg-info text-white">
-              <h4 class="modal-title">Add room</h4>
-              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-          </div>
+  
 
-          <!-- Body -->
-          <div class="modal-body">
-              <form action="/insert-room" method="post" >
-                <div class="form-group">
-                  <label class="req-label">Room number</label>
-                  <input type="text" id="room_number" name="room_number" class="form-control" placeholder="Enter room room number" autocomplete="off">
-                </div>
-                
-               
-                <div class="form-group">
-                  <label class="req-label">Description</label>
-                  <input type="text" id="description" name="description" class="form-control" placeholder="Enter room description" autocomplete="off">
-                </div>
-                
-                <div class="form-group">
-                  <label class="req-label">Capacity</label>
-                  <input type="number" id="capacity" name="capacity" class="form-control" placeholder="Enter room capacity" autocomplete="off">
-                </div>
-                
-                <div class="form-group">
-                  <label class="req-label">Amenities</label>
-                  <input type="text" id="amenities" name="amenities" class="form-control" placeholder="Enter room amenities" autocomplete="off">
-                </div>
-                
-                <div class="form-group">
-                  <label class="req-label">Price</label>
-                  <input type="number" id="price" name="price" class="form-control" placeholder="Enter room price" autocomplete="off">
-                </div>
-                
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
-                      <button type="submit" class="btn btn-primary">Save</button>
-                  </div>
-              </form>
-          </div>
-      </div>
-      <!--/.Content-->
+  <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-right modal-dialog-bottom modal-dialog-notify modal-dialog-info" role="document">
+        <!-- Content -->
+          <div class="modal-content">
+            <!-- Header -->
+            <div class="modal-header bg-info text-white">
+                <h4 class="modal-title">Update status</h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+  
+            <!-- Body -->
+            <div class="modal-body">
+         
+            
+                <form action="/update-reservation" method="post" >
+                    <div class="form-group">
+                        <label class="req-label">Status</label>
+                        <select id="status" name="status" class="form-control">
+                            <option value="accepted">Accepted</option>
+                            <option value="rejected">Rejected</option>
+                        </select>
+                    </div>
+                      
+                    <input type="hidden" id="reservation_id" name="reservation_id" value="">
+
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
   </div>
-</div>
-
-
+  
+    
 
 <script>
   function confirmAndRedirect(roomId) {
@@ -196,4 +183,15 @@
           window.location.href = "/delete-room/" + roomId;
       }
   }
+
+//edit- get the id of the record
+    $('#modalAdd').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); // Button that triggered the modal
+        var reservationId = button.data('reservation-id'); // Extract reservation_id from data attribute
+
+        // Set the value of the hidden input in the modal form
+        $(this).find('#reservation_id').val(reservationId);
+    });
+
+
   </script>

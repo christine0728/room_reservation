@@ -19,6 +19,27 @@ exports.getRoom = (req, res)=>{
     res.render("room", {result,  alert });
   });
 };
+// Assuming mainCon.js
+exports.updateStatus = (req, res) => {
+  const { reservation_id, status } = req.body;
+
+  const sql = "UPDATE reservations SET status = ? WHERE reservation_id = ?";
+
+  con.query(sql, [status, reservation_id], (err, result) => {
+    if (err) {
+      console.error(err.message);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+
+    if (result.affectedRows === 0) {
+      // No rows were affected, meaning the reservation_id was not found
+      return res.status(404).json({ error: 'Reservation not found' });
+    }
+
+    // Successful update
+    return res.status(200).json({ message: 'Status updated successfully' });
+  });
+};
 
 exports.getUser = (req, res)=>{
   const alert = req.query.alert || "";
@@ -32,7 +53,10 @@ exports.getUser = (req, res)=>{
     res.render("users", {result,  alert });
   });
 };
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 exports.getReservation = (req, res) => {
   const alert = req.query.alert || "";
   const sql =
@@ -172,124 +196,6 @@ exports.registerUser = async (req, res) => {
 };
 
   
-
-exports.addPost = (req, res) => {
-
-    res.render("addpost", { });
-
-};
-
-exports.viewPost = (req, res) => {
-  // res.json(req.body);
-  const id = req.params.id;
-  const sql = "SELECT * FROM posts WHERE id = ?";
-  con.query(sql, [id], (err, result) => {
-    if (err) {
-      console.log(err.message);
-      return res.status(500).send('Internal Server Error');
-    }
-
-    if (result.length === 0) {
-
-      return res.status(404).send('Post not found');
-    }
-
-    const post = result[0];
-
-
-    res.render("viewpost", { post });
-  });
-
-};
-exports.insertPost = (req, res) => {
-  let title = req.body.title;
-  let post = req.body.posts;
-  let alert = "Blog successfully inserted!";
-  
-  const sql =
-    "INSERT INTO posts (title, content, created_at) VALUES (?, ?, NOW())";
-  con.query(sql, [title, post], (err, result) => {
-    if (err) {
-      // console.log(err.message);
-      alert = err.message;
-    } else {
-      alert = "your message has been recorded";
-    }
-    // res.json(req.body);
-    res.redirect("/?alert=Post%20inserted%20successfully");
-  });
-};
-exports.updatePost = (req, res) => {
-  let title = req.body.title;
-  let id = req.body.id;
-  let content = req.body.content;
-  const sql = "UPDATE posts SET title = ?, content = ?, created_at = NOW() WHERE id = ?";
-
-  con.query(sql, [title, content, id], (err, result) => {
-    if (err) {
-      console.log(err.message);
-      res.status(500).send('Internal Server Error');
-    } else {
-      res.redirect("/?alert=Post%20updated%20successfully");
-    }
-  });
-};
-
-
-
-
-exports.getPost = (req, res) => {
-  // res.send("hehehehe");
-  const sql = "SELECT * FROM posts";
-  con.query(sql, (err, result) => {
-    if (err) {
-      console.log(err.message);
-      return;
-    }
-    // res.json(result);
-    res.render("index", { result });
-  });
-};
-
-
-exports.deletePost = (req, res) => {
-  const id = req.params.id;
-  let alert = "Blog successfully deleted!";
-  const sql = "DELETE FROM posts WHERE id=?";
-  con.query(sql, [id], (err, result) => {
-    if (err) {
-      console.log(err.message);
-      return;
-    }
-    res.redirect("/?alert=Post%20deleted%20successfully");
-  });
-  
-};
-
-
-exports.editPost = (req, res) => {
-  const id = req.params.id;
-  const sql = "SELECT * FROM posts WHERE id = ?";
-  con.query(sql, [id], (err, result) => {
-    if (err) {
-      console.log(err.message);
-      return res.status(500).send('Internal Server Error');
-    }
-
-    if (result.length === 0) {
-      // Handle the case where no post is found with the specified id
-      return res.status(404).send('Post not found');
-    }
-
-    const post = result[0];
-
-    // Render the 'viewpost' template and pass the post data
-    res.render("editpost", { post });
-  });
-
-  
-};
-
 
 exports.postInsert = (req, res) => {
 
