@@ -58,21 +58,12 @@ router.get("/view_reservations/:client_id", mainCon.viewReservations);
 
 // admin sides
 router.get("/room", mainCon.getRoom);
-<<<<<<< Updated upstream
-
-
-=======
   
->>>>>>> Stashed changes
 router.get("/logout", (req, res) => {
   req.session.destroy();
   res.redirect('/');
 });
 
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 
 //rooms
 router.get("/room", mainCon.getRoom);
@@ -83,11 +74,6 @@ router.post("/update-room", mainCon.postUpdate);
 router.get("/users", mainCon.getUser);
 
 //reservations
-<<<<<<< Updated upstream
 router.get("/reservations", mainCon.getReservation);
  router.post("/update-reservation", mainCon.updateStatus);
-=======
-router.get("/reservations", mainCon.getReservation); 
-
->>>>>>> Stashed changes
 module.exports = router;
