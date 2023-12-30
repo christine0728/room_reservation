@@ -249,8 +249,6 @@ exports.availRoom = (req, res) => {
   });
 }; 
 
-<<<<<<< Updated upstream
-=======
 exports.addReservation = (req, res) => {
   let room_id = req.body.room_id;
   let client_id = req.body.client_id;
@@ -276,7 +274,7 @@ exports.viewReservations = (req, res) => {
   const client_id = req.params.client_id;
   const alert = req.query.alert || "";
   const sql =
-    "SELECT reservations.*, rooms.room_number, rooms.price, users.username " +
+    "SELECT reservations.*, rooms.room_number, rooms.price, users.* " +
     "FROM reservations " +
     "JOIN rooms ON reservations.room_id = rooms.room_id " +
     "JOIN users ON reservations.user_id = users.id where users.id = ?";
@@ -288,7 +286,7 @@ exports.viewReservations = (req, res) => {
     }
 
     // Assuming you have a 'users' view for rendering
-    res.render("view_reservations", { result, alert });
+    res.render("view_reservations", { result });
   });
 };
 
@@ -313,7 +311,8 @@ exports.viewPost = (req, res) => {
 
 };
 
->>>>>>> Stashed changes
+
+// insert room
 exports.postInsert = (req, res) => {
 
   let room_number = req.body.room_number;
