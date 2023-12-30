@@ -225,7 +225,7 @@ exports.home = (req, res) => {
   const client_id = req.params.client_id;
   const sql = "SELECT * FROM rooms";
   con.query(sql, (err, rooms) => { 
-    res.render("home", { rooms, client_id });
+    res.render("clients/home", { rooms, client_id });
   });
 }; 
 
@@ -244,7 +244,7 @@ exports.availRoom = (req, res) => {
     con.query(sql2, [roomid], (err, results2) => {
       if (err) throw err;
   
-      res.render("avail_room", { results1, results2 });
+      res.render("clients/avail_room", { results1, results2 });
     });
   });
 }; 
@@ -286,7 +286,7 @@ exports.viewReservations = (req, res) => {
     }
 
     // Assuming you have a 'users' view for rendering
-    res.render("view_reservations", { result });
+    res.render("clients/view_reservations", { result });
   });
 };
 
