@@ -311,6 +311,12 @@ exports.viewPost = (req, res) => {
 
 };
 
+exports.addPost = (req, res) => {
+
+  res.render("addpost", { });
+
+};
+
 
 // insert room
 exports.postInsert = (req, res) => {

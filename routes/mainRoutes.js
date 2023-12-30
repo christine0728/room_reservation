@@ -59,6 +59,7 @@ router.get("/delete-room/:id", mainCon.postDelete);
 router.post("/update-room", mainCon.postUpdate);
 //users
 router.get("/users", mainCon.getUser);
+router.get("/add-post", mainCon.addPost);
 
 //reservations
 router.get("/reservations", mainCon.getReservation);
