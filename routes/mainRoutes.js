@@ -36,6 +36,7 @@ router.get("/login", (req, res) => {
 
   res.render("login", { error }); // Pass the error variable as an object
 });
+
 router.get('/register', (req, res) => {
   // Get flash messages
   const success = req.flash('success') || [];
@@ -44,18 +45,34 @@ router.get('/register', (req, res) => {
   // Render the view with flash messages
   res.render('register', { success,error });
 });
+
 router.post("/login-user",  mainCon.loginUser);
 router.post("/register-user", mainCon.registerUser);
 
+// client side
+router.get('/home/:client_id', mainCon.home);
+router.get("/avail_room/:client_id/:room_id", mainCon.availRoom); 
+router.post("/add_reservation", mainCon.addReservation); 
+router.get("/view_reservations/:client_id", mainCon.viewReservations); 
+
+
+// admin sides
 router.get("/room", mainCon.getRoom);
+<<<<<<< Updated upstream
 
 
+=======
+  
+>>>>>>> Stashed changes
 router.get("/logout", (req, res) => {
   req.session.destroy();
   res.redirect('/');
 });
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 
 //rooms
 router.get("/room", mainCon.getRoom);
@@ -66,6 +83,11 @@ router.post("/update-room", mainCon.postUpdate);
 router.get("/users", mainCon.getUser);
 
 //reservations
+<<<<<<< Updated upstream
 router.get("/reservations", mainCon.getReservation);
  router.post("/update-reservation", mainCon.updateStatus);
+=======
+router.get("/reservations", mainCon.getReservation); 
+
+>>>>>>> Stashed changes
 module.exports = router;

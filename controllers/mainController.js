@@ -104,8 +104,7 @@ exports.loginUser = (req, res)=>{
   const userSql = "SELECT * FROM users WHERE username= ?";
   const postsSql = "SELECT * FROM rooms";
 
-  if (!username || !password) {
-    
+  if (!username || !password) { 
     return res.render('login', { alertMessage: 'Username and password are required.' });
   }
 
@@ -120,38 +119,42 @@ exports.loginUser = (req, res)=>{
     if (userResult.length > 0) {
       const hashpass = userResult[0].password;
 
-      if (await argon2.verify(hashpass, password)) {
-
+      if (await argon2.verify(hashpass, password)) { 
         con.query(postsSql, (err, result) => {
           if (err) {
             console.log(err.message);
             return res.status(500).send('Internal Server Error');
-          }
-
+          } 
           console.log('Session user:', userResult[0]);
-          req.session.user = userResult[0];
-       
-        if (userResult[0].usertype === 'admin') {
- 
-          return res.redirect('/add-post');
-        }
-
-          res.render('index', { user: userResult[0], result });
+          req.session.user = userResult[0]; 
+          if (userResult[0].usertype === 'admin') {
+            return res.redirect('/add-post');
+          }
+          if (userResult[0].usertype === 'client') {
+            let client_id = userResult[0].id;
+            const id = req.params.id;
+            const sql = "SELECT * FROM rooms";
+            con.query(sql, (err, rooms) => { 
+              // res.render("home", { rooms, client_id });
+              // return res.redirect('/home');
+              return res.redirect(`/home/${client_id}`);
+            });
+          }
+          // res.render('index', { user: userResult[0], result });
         });
-      } else {
-
+      } 
+      else {
         req.flash('error', 'Invalid password');
         res.render("login", { error: req.flash('error')  });
       }
-    } else {
-      console.log('d');
-
-      req.flash('error', 'Invalid username');
-  
+    } 
+    
+    else {
+      console.log('d'); 
+      req.flash('error', 'Invalid username'); 
       res.render("login", { alert,  error: req.flash('error')  });
     }
-  });
-
+  }); 
 }
 
 
@@ -217,8 +220,100 @@ exports.registerUser = async (req, res) => {
   });
 };
 
-  
+exports.home = (req, res) => {
+  // res.json(req.body);
+  const client_id = req.params.client_id;
+  const sql = "SELECT * FROM rooms";
+  con.query(sql, (err, rooms) => { 
+    res.render("home", { rooms, client_id });
+  });
+}; 
 
+exports.availRoom = (req, res) => {
+  // res.json(req.body);
+  const roomid = req.params.room_id;
+  const clientid = req.params.client_id;
+  // req.session.id = client_id;
+  // console.log('here');
+  // console.log(req.session.id);
+  const sql = "SELECT * FROM users WHERE id = ?";
+  const sql2 = "SELECT * FROM rooms WHERE room_id = ?";
+  con.query(sql, [clientid], (err, results1) => {
+    if (err) throw err;
+  
+    con.query(sql2, [roomid], (err, results2) => {
+      if (err) throw err;
+  
+      res.render("avail_room", { results1, results2 });
+    });
+  });
+}; 
+
+<<<<<<< Updated upstream
+=======
+exports.addReservation = (req, res) => {
+  let room_id = req.body.room_id;
+  let client_id = req.body.client_id;
+  let start_date = req.body.start_date;
+  let end_date = req.body.end_date;
+  let alert = "Blog successfully inserted!";
+  
+  const sql =
+    "INSERT INTO reservations (room_id, user_id, start_date, end_date, status, created_at) VALUES (?, ?, ?, ?, 'pending', NOW())";
+  con.query(sql, [room_id, client_id, start_date, end_date], (err, result) => {
+    if (err) {
+      // console.log(err.message);
+      alert = err.message;
+    } else {
+      alert = "your message has been recorded";
+    }
+    // res.json(req.body);
+    res.redirect(`/home/${client_id}`);
+  });
+};
+
+exports.viewReservations = (req, res) => {
+  const client_id = req.params.client_id;
+  const alert = req.query.alert || "";
+  const sql =
+    "SELECT reservations.*, rooms.room_number, rooms.price, users.username " +
+    "FROM reservations " +
+    "JOIN rooms ON reservations.room_id = rooms.room_id " +
+    "JOIN users ON reservations.user_id = users.id where users.id = ?";
+
+  con.query(sql, [client_id], (err, result) => {
+    if (err) {
+      console.log(err.message);
+      return res.status(500).send("Internal Server Error");
+    }
+
+    // Assuming you have a 'users' view for rendering
+    res.render("view_reservations", { result, alert });
+  });
+};
+
+exports.viewPost = (req, res) => {
+  // res.json(req.body);
+  const id = req.params.id;
+  const sql = "SELECT * FROM posts WHERE id = ?";
+  con.query(sql, [id], (err, result) => {
+    if (err) {
+      console.log(err.message);
+      return res.status(500).send('Internal Server Error');
+    }
+
+    if (result.length === 0) {
+
+      return res.status(404).send('Post not found');
+    }
+
+    const post = result[0]; 
+    res.render("viewpost", { post });
+  });
+
+};
+
+>>>>>>> Stashed changes
 exports.postInsert = (req, res) => {
 
   let room_number = req.body.room_number;
