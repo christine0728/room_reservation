@@ -61,7 +61,7 @@ router.get("/logout", (req, res) => {
 router.get("/room", mainCon.getRoom);
 router.post("/insert-room", mainCon.postInsert);
 router.get("/delete-room/:id", mainCon.postDelete);
-
+router.post("/update-room", mainCon.postUpdate);
 //users
 router.get("/users", mainCon.getUser);
 

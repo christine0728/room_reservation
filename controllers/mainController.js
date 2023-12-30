@@ -19,6 +19,31 @@ exports.getRoom = (req, res)=>{
     res.render("room", {result,  alert });
   });
 };
+
+// Assuming mainCon.js
+exports.postUpdate = (req, res) => {
+  
+  const { room_id, room_number, description, capacity, amenities, price } = req.body;
+
+  const sql = "UPDATE rooms SET room_number = ?, description = ?, capacity = ?, amenities = ?, price = ? WHERE room_id = ?";
+
+  con.query(sql, [room_number, description, capacity, amenities, price, room_id], (err, result) => {
+    if (err) {
+      console.error(err.message);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+
+    if (result.affectedRows === 0) {
+      // No rows were affected, meaning the room_id was not found
+      return res.status(404).json({ error: 'Room not found' });
+    }
+    const alert = "Room successfully updated!";
+    res.redirect("/room?alert=" + encodeURIComponent(alert));
+    // Successful update
+   
+  });
+};
+
 // Assuming mainCon.js
 exports.updateStatus = (req, res) => {
   const { reservation_id, status } = req.body;
@@ -53,10 +78,7 @@ exports.getUser = (req, res)=>{
     res.render("users", {result,  alert });
   });
 };
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
 exports.getReservation = (req, res) => {
   const alert = req.query.alert || "";
   const sql =
