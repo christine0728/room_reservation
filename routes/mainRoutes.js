@@ -36,6 +36,7 @@ router.get("/login", (req, res) => {
 
   res.render("login", { error }); // Pass the error variable as an object
 });
+
 router.get('/register', (req, res) => {
   // Get flash messages
   const success = req.flash('success') || [];
@@ -44,24 +45,25 @@ router.get('/register', (req, res) => {
   // Render the view with flash messages
   res.render('register', { success,error });
 });
+
 router.post("/login-user",  mainCon.loginUser);
 router.post("/register-user", mainCon.registerUser);
 
+// client side
+router.get('/home/:client_id', mainCon.home);
+router.get("/avail_room/:client_id/:room_id", mainCon.availRoom); 
+router.post("/add_reservation", mainCon.addReservation); 
+router.get("/view_reservations/:client_id", mainCon.viewReservations); 
+
+
+// admin sides
 router.get("/room", mainCon.getRoom);
-router.post("/insert-post", mainCon.insertPost);
-router.post("/update-post", mainCon.updatePost);
-router.get("/view-post/:id", mainCon.viewPost);
-
-
-router.get("/add-post",isAdmin, islogin , mainCon.addPost);
-
+  
 router.get("/logout", (req, res) => {
   req.session.destroy();
   res.redirect('/');
 });
 
-router.get("/edit-post/:id", isAdmin, mainCon.editPost);
-router.get("/delete-post/:id", isAdmin, mainCon.deletePost);
 
 //rooms
 router.get("/room", mainCon.getRoom);
@@ -72,5 +74,6 @@ router.get("/delete-room/:id", mainCon.postDelete);
 router.get("/users", mainCon.getUser);
 
 //reservations
-router.get("/reservations", mainCon.getReservation);
+router.get("/reservations", mainCon.getReservation); 
+
 module.exports = router;
