@@ -6,7 +6,7 @@
         <%- include('../partials/scripts.ejs') %>
         <link rel="stylesheet" href="/css/home.css" />
         <script src="/js/home.js" defer></script>
-        <title>Profile</title>
+        <title>Edit Profile</title>
         <style>
             label{
                 font-size: large !important;
@@ -21,52 +21,64 @@
 
         <div style="margin-top: 2rem; padding: 5rem 12rem 4rem 12rem">
             <div class="col-12" style="margin: 2rem 2rem 2rem 0rem;">
-                <h1><b>Profile</b></h1> 
+                <h1><b>Edit Profile</b></h1> 
                 
                 <% results1.forEach(res1 => { %>
+                <form action="/update_profile/<%= client_id %>" method="post">
                     <div class="row" style="margin: 4rem 0rem 2rem 0rem;">
                         <div style="margin-top: 1rem;"></div>
-                        <input type="hidden" name="client_id" value="<%= res1.id %>" readonly> 
+                        <input type="hidden" name="client_id" value="<%= res1.id %>"> 
                         <div class="col-4">
                             <div class="mb-6">
-                                <label>Fullname:</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res1.firstname %> <%= res1.lastname %>" readonly> 
+                                <label>Firstname:</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res1.firstname %>" name="firstname"> 
+                            </div> 
+                        </div>
+                        <div class="col-4">
+                            <div class="mb-6">
+                                <label>Lastname:</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res1.lastname %>" name="lastname"> 
                             </div> 
                         </div>
                         <div class="col-4">
                             <div class="mb-3">
                                 <label>Address:</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res1.address %>" readonly> 
+                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res1.address %>" name="address"> 
                             </div> 
                         </div>
                         <div class="col-4">
                             <div class="mb-3">
                                 <label>Email:</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res1.email %>" readonly> 
+                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res1.email %>" name="email"> 
                             </div> 
                         </div>
                         <div class="col-4">
                             <div class="mb-3">
                                 <label>Contact no.:</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res1.contact_no %>" readonly> 
+                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res1.contact_no %>" name="contact_no"> 
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="mb-3">
                                 <label>Birthday:</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res1.birthday %>" readonly> 
+                                <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res1.birthday %>" name="birthday"> 
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="mb-3">
                                 <label>Gender:</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res1.gender %>" readonly> 
+                                <!-- <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res1.gender %>">  -->
+                                <select class="form-control" name="gender" value="<%= res1.gender %>">
+                                    <option value="female">Female</option>
+                                    <option value="male">Male</option>
+                                </select>
                             </div>
                         </div> 
                         <div class="col-12">
-                            <a href="/edit_profile/<%= client_id %>" class="button" style="float: right; margin: 0rem;">Edit profile</a>
+                            <button type="submit" class="button">Update</button>
                         </div>
                     </div>
+                </form>
                 <% }); %>
             </div>
         </div>
