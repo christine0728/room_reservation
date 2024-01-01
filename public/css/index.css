@@ -60,7 +60,7 @@ h2 {
   left: 0;
   transform: translateY(-50%);
   color: #fff;
-  font-size: 16px;
+  font-size: medium !important;
   pointer-events: none;
   transition: 0.15s ease;
 }
@@ -71,15 +71,15 @@ h2 {
   background: transparent;
   border: none;
   outline: none;
-  font-size: 16px;
+  font-size: large !important;
   color: #fff;
 }
 
 .input-field input:focus~label,
 .input-field input:valid~label {
-  font-size: 0.8rem;
+  font-size: 0.8rem !important;
   top: 10px;
-  transform: translateY(-120%);
+  transform: translateY(-130%);
 }
 
 .forget {
