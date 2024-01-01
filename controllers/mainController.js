@@ -4,7 +4,7 @@ const con = require("../db/connection");
 const argon2  = require("argon2");
 
 exports.getIndex = (req, res) => {
-  res.render("index",); 
+  res.render("mains/main",); 
 };
 
 exports.getRoom = (req, res)=>{
@@ -232,19 +232,19 @@ exports.home = (req, res) => {
 exports.availRoom = (req, res) => {
   // res.json(req.body);
   const roomid = req.params.room_id;
-  const clientid = req.params.client_id;
+  const client_id = req.params.client_id;
   // req.session.id = client_id;
   // console.log('here');
   // console.log(req.session.id);
   const sql = "SELECT * FROM users WHERE id = ?";
   const sql2 = "SELECT * FROM rooms WHERE room_id = ?";
-  con.query(sql, [clientid], (err, results1) => {
+  con.query(sql, [client_id], (err, results1) => {
     if (err) throw err;
   
     con.query(sql2, [roomid], (err, results2) => {
       if (err) throw err;
   
-      res.render("clients/avail_room", { results1, results2 });
+      res.render("clients/avail_room", { results1, results2, client_id });
     });
   });
 }; 
@@ -266,7 +266,7 @@ exports.addReservation = (req, res) => {
       alert = "your message has been recorded";
     }
     // res.json(req.body);
-    res.redirect(`/home/${client_id}`);
+    res.redirect(`clients/home/${client_id}`);
   });
 };
 

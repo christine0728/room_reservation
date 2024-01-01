@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -39,6 +39,61 @@
         </table>
     </div>
 </body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#roomsTbl').DataTable();
+    });
+</script>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+        <%- include('../partials/scripts.ejs') %>
+        <link rel="stylesheet" href="/css/home.css" />
+        <script src="/js/home.js" defer></script>
+        <title>Home</title>
+    </head>
+    <body>
+        <%- include('../partials/cl_loggedin_nav.ejs') %>
+
+        <div class="col-12" style="overflow-x:auto; margin-top: 9rem; padding: 5rem; background-color: aliceblue;">
+            <table id="roomsTbl" class="display">
+                <thead>
+                    <tr>
+                        <th>Room number</th>
+                        <th>Capacity</th>
+                        <th>Amenities</th>
+                        <th>Price</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <% rooms.forEach(room => { %>
+                    <td><%= room.room_number %></td>
+                    <td><%= room.capacity %></td>
+                    <td><%= room.amenities %></td>
+                    <td><%= room.price %></td>
+                    <td><%= room.description %></td>
+                    <td> <a href="/avail_room/<%= client_id %>/<%= room.room_id %>">Avail Room</a></td>
+                <% }); %>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer">
+            <span class="copyright-symbol">Casa De Kwarto &copy; 2023. All Rights Reserved.</span>
+        </div> 
+    </body>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
