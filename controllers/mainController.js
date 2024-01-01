@@ -284,6 +284,31 @@ exports.viewReservations = (req, res) => {
   });
 };
 
+exports.viewRooms = (req, res) => {
+  // res.json(req.body);
+  const client_id = req.params.client_id;
+  let roomsavail = "can";
+  const ifsql = "SELECT * FROM reservations WHERE user_id = ?";
+  con.query(ifsql, [client_id], (err, result) => {
+    result.forEach(res => {
+      id = res.id;
+      if (id === null){
+        console.log("okay");
+        roomsavail = "can";
+      }
+      else { 
+        console.log("di");
+        roomsavail = "cannot";
+      } 
+    }); 
+  }); 
+
+  const sql = "SELECT * FROM rooms";
+  con.query(sql, (err, rooms) => { 
+    res.render("clients/view_rooms", { rooms, client_id, roomsavail });
+  });
+}; 
+
 exports.viewPost = (req, res) => {
   // res.json(req.body);
   const id = req.params.id;
@@ -310,7 +335,6 @@ exports.addPost = (req, res) => {
   res.render("addpost", { });
 
 };
-
 
 // insert room
 exports.postInsert = (req, res) => {
