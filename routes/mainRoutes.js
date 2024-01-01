@@ -19,7 +19,8 @@ const isAdmin = (req, res, next) => {
   }
 };
 
-router.get("/", islogin ,mainCon.getIndex);
+router.get("/",mainCon.getIndex);
+router.get("/home",mainCon.getIndex);
 router.get("/index",islogin , (req, res) => {
   res.redirect("/");
 });
@@ -38,10 +39,12 @@ router.get('/register', (req, res) => {
 });
 
 router.get('/about_us', (req, res) => {  
-  res.render('about_us');
+  res.render('mains/about_us');
 });
 
-
+router.get('/all_rooms', (req, res) => {  
+  res.render('mains/all_rooms');
+});
 
 // client side
 router.get('/home/:client_id', mainCon.home);
