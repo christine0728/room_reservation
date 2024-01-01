@@ -14,33 +14,27 @@ exports.getRoom = (req, res)=>{
     if (err) {
       console.log(err.message);
       return;
-    }
-
+    } 
     res.render("room", {result,  alert });
   });
 };
 
 // Assuming mainCon.js
-exports.postUpdate = (req, res) => {
-  
-  const { room_id, room_number, description, capacity, amenities, price } = req.body;
-
-  const sql = "UPDATE rooms SET room_number = ?, description = ?, capacity = ?, amenities = ?, price = ? WHERE room_id = ?";
-
+exports.postUpdate = (req, res) => { 
+  const { room_id, room_number, description, capacity, amenities, price } = req.body; 
+  const sql = "UPDATE rooms SET room_number = ?, description = ?, capacity = ?, amenities = ?, price = ? WHERE room_id = ?"; 
   con.query(sql, [room_number, description, capacity, amenities, price, room_id], (err, result) => {
     if (err) {
       console.error(err.message);
       return res.status(500).json({ error: 'Internal server error' });
-    }
-
+    } 
     if (result.affectedRows === 0) {
       // No rows were affected, meaning the room_id was not found
       return res.status(404).json({ error: 'Room not found' });
     }
     const alert = "Room successfully updated!";
     res.redirect("/room?alert=" + encodeURIComponent(alert));
-    // Successful update
-   
+    // Successful update 
   });
 };
 
@@ -54,13 +48,11 @@ exports.updateStatus = (req, res) => {
     if (err) {
       console.error(err.message);
       return res.status(500).json({ error: 'Internal server error' });
-    }
-
+    } 
     if (result.affectedRows === 0) {
       // No rows were affected, meaning the reservation_id was not found
       return res.status(404).json({ error: 'Reservation not found' });
-    }
-
+    } 
     // Successful update
     return res.status(200).json({ message: 'Status updated successfully' });
   });
@@ -73,8 +65,7 @@ exports.getUser = (req, res)=>{
     if (err) {
       console.log(err.message);
       return;
-    }
-
+    } 
     res.render("users", {result,  alert });
   });
 };
@@ -85,14 +76,12 @@ exports.getReservation = (req, res) => {
     "SELECT reservations.*, rooms.room_number, rooms.price, users.username " +
     "FROM reservations " +
     "JOIN rooms ON reservations.room_id = rooms.room_id " +
-    "JOIN users ON reservations.user_id = users.id";
-
+    "JOIN users ON reservations.user_id = users.id"; 
   con.query(sql, (err, result) => {
     if (err) {
       console.log(err.message);
       return res.status(500).send("Internal Server Error");
-    }
-
+    } 
     // Assuming you have a 'users' view for rendering
     res.render("reservation", { result, alert });
   });
@@ -102,23 +91,18 @@ exports.loginUser = (req, res)=>{
   console.log('f');
   const { username, password } = req.body;
   const userSql = "SELECT * FROM users WHERE username= ?";
-  const postsSql = "SELECT * FROM rooms";
-
+  const postsSql = "SELECT * FROM rooms"; 
   if (!username || !password) { 
     return res.render('login', { alertMessage: 'Username and password are required.' });
-  }
-
-  let alert = "";
-
+  } 
+  let alert = ""; 
   con.query(userSql, [username], async (err, userResult) => {
     if (err) {
       console.log(err.message);
       return res.status(500).send('Internal Server Error');
-    }
-
+    } 
     if (userResult.length > 0) {
-      const hashpass = userResult[0].password;
-
+      const hashpass = userResult[0].password; 
       if (await argon2.verify(hashpass, password)) { 
         con.query(postsSql, (err, result) => {
           if (err) {
@@ -147,8 +131,7 @@ exports.loginUser = (req, res)=>{
         req.flash('error', 'Invalid password');
         res.render("login", { error: req.flash('error')  });
       }
-    } 
-    
+    }  
     else {
       console.log('d'); 
       req.flash('error', 'Invalid username'); 
@@ -157,62 +140,48 @@ exports.loginUser = (req, res)=>{
   }); 
 }
 
-
 exports.registerUser = async (req, res) => {
   const { firstname, lastname, birthday, gender, address, contact_no, username, email, password, confirmPassword } = req.body;
-  const hashpass = await argon2.hash(password);
- 
+  const hashpass = await argon2.hash(password); 
   if (!firstname || !lastname || !birthday || !gender || !address || !contact_no || !username || !email || !password || !confirmPassword) {
     req.flash('error', 'All fields are required.');
     return res.render('register', { error: req.flash('error') });
-  }
-
+  } 
   if (password.length < 8) {
     req.flash('error', 'Password must be at least 8 characters long.');
     return res.render('register', { error: req.flash('error') });
-  }
-
+  } 
   if (password !== confirmPassword) {
     req.flash('error', 'Passwords do not match.');
     return res.render('register', { error: req.flash('error') });
-  }
-
+  } 
   const checkExistingSql = "SELECT COUNT(*) AS count FROM users WHERE username = ? OR email = ?";
-  const checkExistingValues = [username, email];
-
+  const checkExistingValues = [username, email]; 
   con.query(checkExistingSql, checkExistingValues, (checkErr, checkResult) => {
     if (checkErr) {
       req.flash('error', 'Error checking existing username and email.');
       return res.render('register', { error: req.flash('error') });
-    }
-
-    const existingCount = checkResult[0].count;
-
-    if (existingCount > 0) {
- 
+    }  
+    const existingCount = checkResult[0].count; 
+    if (existingCount > 0) { 
       req.flash('error', 'Username or email already in use.');
       return res.render('register', { error: req.flash('error') });
-    }
-
+    } 
     const insertSql = "INSERT INTO users (firstname, lastname, birthday, gender, address, contact_no, username, email, password, usertype) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    const insertValues = [firstname, lastname, birthday, gender, address, contact_no, username, email, hashpass, 'client'];
-
+    const insertValues = [firstname, lastname, birthday, gender, address, contact_no, username, email, hashpass, 'client']; 
     con.query(insertSql, insertValues, (insertErr, insertResult) => {
       if (insertErr) {
         req.flash('error', 'Error registering user.');
         return res.render('register', { error: req.flash('error') });
-      }
-
+      } 
       req.session.username = username;
       req.session.email = email;
-      const sqlPosts = "SELECT * FROM rooms";
-   
+      const sqlPosts = "SELECT * FROM rooms"; 
       con.query(sqlPosts, (selectErr, posts) => {
         if (selectErr) {
           req.flash('error', 'Error fetching posts.');
           return res.render('register', { error: req.flash('error') });
-        }
-    
+        } 
         // Render the 'index' view with the updated list of posts
         res.render("index", { result: posts });
       });
@@ -223,9 +192,25 @@ exports.registerUser = async (req, res) => {
 exports.home = (req, res) => {
   // res.json(req.body);
   const client_id = req.params.client_id;
+  let roomsavail = "can";
+  const ifsql = "SELECT * FROM reservations WHERE user_id = ?";
+  con.query(ifsql, [client_id], (err, result) => {
+    result.forEach(res => {
+      id = res.id;
+      if (id === null){
+        console.log("okay");
+        roomsavail = "can";
+      }
+      else { 
+        console.log("di");
+        roomsavail = "cannot";
+      } 
+    }); 
+  }); 
+
   const sql = "SELECT * FROM rooms";
   con.query(sql, (err, rooms) => { 
-    res.render("clients/home", { rooms, client_id });
+    res.render("clients/home", { rooms, client_id, roomsavail });
   });
 }; 
 
@@ -239,11 +224,9 @@ exports.availRoom = (req, res) => {
   const sql = "SELECT * FROM users WHERE id = ?";
   const sql2 = "SELECT * FROM rooms WHERE room_id = ?";
   con.query(sql, [client_id], (err, results1) => {
-    if (err) throw err;
-  
+    if (err) throw err; 
     con.query(sql2, [roomid], (err, results2) => {
-      if (err) throw err;
-  
+      if (err) throw err; 
       res.render("clients/avail_room", { results1, results2, client_id });
     });
   });
@@ -255,6 +238,17 @@ exports.addReservation = (req, res) => {
   let start_date = req.body.start_date;
   let end_date = req.body.end_date;
   let alert = "Blog successfully inserted!";
+
+  // const ifsql = "SELECT * reservations WHERE user_id = ?";
+  // con.query(ifsql, [client_id], (err, result) => {
+  //   if (result == null) {
+  //     console.log("okay");
+  //   } else {
+  //     alert = "your message has been recorded";
+  //   }
+  //   // res.json(req.body);
+  //   // res.redirect(`home/${client_id}`);
+  // });
   
   const sql =
     "INSERT INTO reservations (room_id, user_id, start_date, end_date, status, created_at) VALUES (?, ?, ?, ?, 'pending', NOW())";
@@ -266,7 +260,7 @@ exports.addReservation = (req, res) => {
       alert = "your message has been recorded";
     }
     // res.json(req.body);
-    res.redirect(`clients/home/${client_id}`);
+    res.redirect(`home/${client_id}`);
   });
 };
 
@@ -274,19 +268,19 @@ exports.viewReservations = (req, res) => {
   const client_id = req.params.client_id;
   const alert = req.query.alert || "";
   const sql =
-    "SELECT reservations.*, rooms.room_number, rooms.price, users.* " +
+    "SELECT reservations.*, rooms.*, users.* " +
     "FROM reservations " +
     "JOIN rooms ON reservations.room_id = rooms.room_id " +
     "JOIN users ON reservations.user_id = users.id where users.id = ?";
 
-  con.query(sql, [client_id], (err, result) => {
+  con.query(sql, [client_id], (err, results1) => {
     if (err) {
       console.log(err.message);
       return res.status(500).send("Internal Server Error");
     }
 
     // Assuming you have a 'users' view for rendering
-    res.render("clients/view_reservations", { result });
+    res.render("clients/view_reservations", { results1, client_id });
   });
 };
 

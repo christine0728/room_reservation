@@ -416,3 +416,24 @@ a {
   width: 100%; /* Make the images fill the container */
   height: auto; /* Maintain aspect ratio */
 }
+
+
+.button {
+  background: #e0a80f;
+  color: #000;
+  font-weight: 600;
+  border: none;
+  padding: 12px 20px;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: large;
+  border: 2px solid transparent;
+  transition: 0.3s ease;
+  float: right;
+  margin-top: 1rem;
+}
+
+.button:hover {
+  color: #fff; 
+  background: black;
+}
