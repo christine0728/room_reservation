@@ -51,7 +51,7 @@ router.get('/home/:client_id', mainCon.home);
 router.get("/avail_room/:client_id/:room_id", mainCon.availRoom); 
 router.post("/add_reservation", mainCon.addReservation); 
 router.get("/view_reservations/:client_id", mainCon.viewReservations); 
-
+router.get("/view_rooms/:client_id", mainCon.viewRooms); 
 
 // admin sides
 router.get("/room", mainCon.getRoom);
