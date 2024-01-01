@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,8 +6,170 @@
     <title>View Reservation</title>
 </head>
 <body>
-    <% result.forEach(res => { %>
+    <% results1.forEach(res => { %>
        <b><%= res.room_number %></b> 
     <% }); %>
 </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+        <%- include('../partials/scripts.ejs') %>
+        <link rel="stylesheet" href="/css/home.css" />
+        <script src="/js/home.js" defer></script>
+        <title>Reservations</title>
+    </head>
+    <body style="background-color: white;">
+        <%- include('../partials/cl_loggedin_nav.ejs') %>
+        <div style="margin-top: 2rem; padding: 4rem">
+            <div class="col-12" style="margin: 2rem 2rem 2rem 0rem;">
+                <h1>Reservations</h1> 
+                
+                <% results1.forEach(res1 => { %>
+                    <div class="row" style="margin: 2rem 0rem 2rem 0rem;">
+                        <div class="col-12" style="margin-bottom: 1rem;">
+                            <h3>Current reservation details</h3>
+                        </div>
+                        <div style="margin-top: 1rem;"></div>
+                        <input type="hidden" name="client_id" value="<%= res1.id %>" readonly> 
+                        <div class="col-4">
+                            <div class="mb-6">
+                                <label>Fullname:</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res1.firstname %> <%= res1.lastname %>" readonly> 
+                            </div> 
+                        </div>
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <label>Address:</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res1.address %>" readonly> 
+                            </div> 
+                        </div>
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <label>Email:</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res1.email %>" readonly> 
+                            </div> 
+                        </div>
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <label>Contact no.:</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res1.contact_no %>" readonly> 
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <label>Birthday:</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res1.birthday %>" readonly> 
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <label>Gender:</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res1.gender %>" readonly> 
+                            </div>
+                        </div> 
+                        <div class="col-12">
+                            <hr>
+                        </div> 
+                        <div class="col-3">
+                            <label>Room number:</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res1.room_number %>" readonly> 
+                            <!-- <b> <input type="text" name="room_num" value=">" readonly></b>  -->
+                        </div>
+                        <div class="col-3">
+                            <label>Capacity:</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res1.capacity %> people" readonly>
+                            <!-- <b> <input type="text" name="capacity" value="" readonly></b>   -->
+                        </div>
+                        <div class="col-3">
+                            <label>Amenities:</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res1.amenities %>" readonly>
+                            <!-- <b> <input type="text" name="amenities" value="" readonly></b>  -->
+                        </div>
+                        <div class="col-3">
+                            <label>Price:</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res1.price %> pesos" readonly>
+                            <!-- <b> <input type="text" name="price" value="" readonly></b>  -->
+                        </div>
+                        <div class="col-12">
+                            <hr>
+                        </div> 
+                        <div class="col-4">
+                            <label>Start date:</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res1.start_date %> pesos" readonly> 
+                        </div>
+                        <div class="col-4">
+                            <label>End date:</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res1.end_date %> pesos" readonly> 
+                        </div>
+                        <div class="col-4">
+                            <label>Status:</label>
+                            <% if(res1.status == "pending") {%>
+                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="PENDING" readonly style="font-weight: bold;"> 
+                            <% } %>
+
+                            <% if(res1.status == "accepted") {%>
+                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="ACCEPTED" readonly style="background-color: palegreen; color: darkgreen; font-weight: bold;"> 
+                            <% } %>
+
+                            <% if(res1.status == "declined") {%>
+                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="DECLINED" readonly style="background-color: lightpink; color: darkred; font-weight: bold;"> 
+                            <% } %>
+
+                            <% if(res1.status == "cancelled") {%>
+                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="CANCELLED" readonly style="background-color: lightblue; color: darkblue; font-weight: bold;"> 
+                            <% } %>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+            <!-- <div class="col-12" style="overflow-x:auto; margin-top: 2rem;">
+                <table id="roomsTbl" class="display">
+                    <thead>
+                        <tr>
+                            <th>Fullname</th>
+                            <th>Gender</th>
+                            <th>Room number</th>
+                            <th>Price</th>
+                            <th>Start date</th>
+                            <th>End date</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody> 
+                    <!-- <% results1.forEach(res => { %>
+                    <tr>
+                        <td><%= res.firstname %> <%= res.lastname %></td>
+                        <td><%= res.gender %></td>
+                        <td><%= res.room_number %></td>
+                        <td><%= res.price %></td>
+                        <td><%= res.start_date %></td>
+                        <td><%= res.end_date %></td>
+                        <td><%= res.status %></td>
+                        <td> view </td>
+                    </tr>
+                    <% }); %> -->
+                    </tbody>
+                </table>
+            </div> -->
+        </div>
+        <div class="footer">
+            <span class="copyright-symbol">Casa De Kwarto &copy; 2023. All Rights Reserved.</span>
+        </div> 
+    </body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#roomsTbl').DataTable();
+    });
+</script>
 </html>
