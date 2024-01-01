@@ -24,12 +24,20 @@
         <link rel="stylesheet" href="/css/home.css" />
         <script src="/js/home.js" defer></script>
         <title>Reservations</title>
+        <style>
+            label{
+                font-size: large !important;
+            }
+            .form-control{
+                font-size: large !important;
+            }
+        </style>
     </head>
     <body style="background-color: white;">
         <%- include('../partials/cl_loggedin_nav.ejs') %>
-        <div style="margin-top: 2rem; padding: 4rem">
+        <div style="margin-top: 2rem; padding: 5rem 12rem 4rem 12rem">
             <div class="col-12" style="margin: 2rem 2rem 2rem 0rem;">
-                <h1>Reservations</h1> 
+                <h1><b>Reservations</b></h1> 
                 
                 <% results1.forEach(res1 => { %>
                     <div class="row" style="margin: 2rem 0rem 2rem 0rem;">
@@ -129,38 +137,8 @@
                     </div>
                 <% }); %>
             </div>
-            <!-- <div class="col-12" style="overflow-x:auto; margin-top: 2rem;">
-                <table id="roomsTbl" class="display">
-                    <thead>
-                        <tr>
-                            <th>Fullname</th>
-                            <th>Gender</th>
-                            <th>Room number</th>
-                            <th>Price</th>
-                            <th>Start date</th>
-                            <th>End date</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody> 
-                    <!-- <% results1.forEach(res => { %>
-                    <tr>
-                        <td><%= res.firstname %> <%= res.lastname %></td>
-                        <td><%= res.gender %></td>
-                        <td><%= res.room_number %></td>
-                        <td><%= res.price %></td>
-                        <td><%= res.start_date %></td>
-                        <td><%= res.end_date %></td>
-                        <td><%= res.status %></td>
-                        <td> view </td>
-                    </tr>
-                    <% }); %> -->
-                    </tbody>
-                </table>
-            </div> -->
         </div>
-        <div class="footer">
+        <div class="footer" >
             <span class="copyright-symbol">Casa De Kwarto &copy; 2023. All Rights Reserved.</span>
         </div> 
     </body>

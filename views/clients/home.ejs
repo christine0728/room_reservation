@@ -13,10 +13,10 @@
     </head>
     <body style="background-color: white;">
         <%- include('../partials/cl_loggedin_nav.ejs') %>
-        <div style="margin-top: 2rem; padding: 4rem">
+        <div style="margin-top: 2rem; padding: 5rem 12rem 2rem 12rem">
             <div class="row" style="margin: 2rem 2rem 2rem 0rem;">
                 <div class="col-12" style="margin-bottom: 1rem;">
-                    <h1>Reservation</h1>
+                    <h1><b>Reservation</b></h1>
                     <% if(roomsavail == "can") {%>
                     <p style="font-size: large; margin-top: 1rem;">No current reservation yet.</p>
                     <div class="col-12">
@@ -31,7 +31,7 @@
                 </div>
 
                 <div class="col-12" style="overflow-x:auto; margin-top: 2rem;">
-                    <h1>Rooms</h1>
+                    <h1><b>Rooms</b></h1>
                     <p style="font-size: large; margin-top: 1rem; margin-bottom: 2rem;">Avail rooms below.</p>
                     <table id="roomsTbl" class="display">
                         <thead>

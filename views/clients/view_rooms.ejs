@@ -3,16 +3,70 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
         <%- include('../partials/scripts.ejs') %>
-        <link rel="stylesheet" href="/css/home.css" />
+        <link rel="stylesheet" href="/css/home.css?version=4" />
         <script src="/js/home.js" defer></script>
-        <title>All Rooms</title>
+        <title>Rooms</title>
     </head>
-    <body>
+    <body style="background-color: white;">
         <%- include('../partials/cl_loggedin_nav.ejs') %>
+        <div style="margin-top: 2rem; padding: 5rem 12rem 2rem 12rem">
+            <div class="row" style="margin: 2rem 2rem 2rem 0rem;">
+                <div class="col-12" style="overflow-x:auto; margin-top: 2rem;">
+                    <h1><b>Rooms</b></h1>
+                    <p style="font-size: large; margin-top: 1rem; margin-bottom: 2rem;">Avail rooms below.</p>
+                    <table id="roomsTbl" class="display">
+                        <thead>
+                            <tr>
+                                <th>Room number</th>
+                                <th>Capacity</th>
+                                <th>Amenities</th>
+                                <th>Price</th>
+                                <th>Description</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <% rooms.forEach(room => { %>
+                        <tr>
+                            <td><%= room.room_number %></td>
+                            <td><%= room.capacity %> people</td>
+                            <td><%= room.amenities %></td>
+                            <td><%= room.price %> pesos</td>
+                            <td><%= room.description %></td>
+                            <td> 
+                                <% if(roomsavail == "can") {%> 
+                                    <a href="/avail_room/<%= client_id %>/<%= room.room_id %>" class="button">Avail Room</a>
+                                <% } if(roomsavail == "cannot") {%>
+                                    Cannot avail a room yet. Wait for the update of your latest reservation.
+                                <% } %>
+                            </td>
+                        </tr>
+                        <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            
+        </div>
 
-        <div class="footer">
+        <hr>
+        
+
+        <div class="footer" style="position: fixed;">
             <span class="copyright-symbol">Casa De Kwarto &copy; 2023. All Rights Reserved.</span>
         </div> 
     </body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#roomsTbl').DataTable();
+    });
+</script>
 </html>

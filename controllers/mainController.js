@@ -238,18 +238,7 @@ exports.addReservation = (req, res) => {
   let start_date = req.body.start_date;
   let end_date = req.body.end_date;
   let alert = "Blog successfully inserted!";
-
-  // const ifsql = "SELECT * reservations WHERE user_id = ?";
-  // con.query(ifsql, [client_id], (err, result) => {
-  //   if (result == null) {
-  //     console.log("okay");
-  //   } else {
-  //     alert = "your message has been recorded";
-  //   }
-  //   // res.json(req.body);
-  //   // res.redirect(`home/${client_id}`);
-  // });
-  
+ 
   const sql =
     "INSERT INTO reservations (room_id, user_id, start_date, end_date, status, created_at) VALUES (?, ?, ?, ?, 'pending', NOW())";
   con.query(sql, [room_id, client_id, start_date, end_date], (err, result) => {
@@ -293,11 +282,11 @@ exports.viewRooms = (req, res) => {
     result.forEach(res => {
       id = res.id;
       if (id === null){
-        console.log("okay");
+        // console.log("okay");
         roomsavail = "can";
       }
       else { 
-        console.log("di");
+        // console.log("di");
         roomsavail = "cannot";
       } 
     }); 
@@ -308,6 +297,58 @@ exports.viewRooms = (req, res) => {
     res.render("clients/view_rooms", { rooms, client_id, roomsavail });
   });
 }; 
+
+exports.viewProfile = (req, res) => {
+  const client_id = req.params.client_id;
+  const alert = req.query.alert || "";
+  const sql = "SELECT * FROM users WHERE id = ?";
+
+  con.query(sql, [client_id], (err, results1) => {
+    if (err) {
+      console.log(err.message);
+      return res.status(500).send("Internal Server Error");
+    }
+
+    // Assuming you have a 'users' view for rendering
+    res.render("clients/profile", { results1, client_id });
+  });
+};
+
+exports.editProfile = (req, res) => {
+  const client_id = req.params.client_id;
+  const alert = req.query.alert || "";
+  const sql = "SELECT * FROM users WHERE id = ?";
+
+  con.query(sql, [client_id], (err, results1) => {
+    if (err) {
+      console.log(err.message);
+      return res.status(500).send("Internal Server Error");
+    }
+
+    // Assuming you have a 'users' view for rendering
+    res.render("clients/edit_profile", { results1, client_id });
+  });
+};
+
+exports.updateProfile = (req, res) => {
+  let client_id = req.body.client_id;
+  const { firstname, lastname, address, email, contact_no, birthday, gender} = req.body; 
+  const sql = "UPDATE users SET firstname = ?, lastname = ?, address = ?, email = ?, contact_no = ?, birthday = ?, gender = ? WHERE id = ?"; 
+  con.query(sql, [firstname, lastname, address, email, contact_no, birthday, gender, client_id], (err, result) => {
+    if (err) {
+      console.error(err.message);
+      return res.status(500).json({ error: 'Internal server error' });
+    } 
+    if (result.affectedRows === 0) {
+      // No rows were affected, meaning the room_id was not found
+      return res.status(404).json({ error: 'User not found' });
+    }
+    const alert = "User successfully updated!";
+    res.redirect(`/profile/${client_id}`);
+    // Successful update 
+  });
+};
+
 
 exports.viewPost = (req, res) => {
   // res.json(req.body);
