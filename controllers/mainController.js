@@ -89,14 +89,14 @@ exports.getReservation = (req, res) => {
 
 exports.loginUser = (req, res)=>{
   console.log('f');
-  const { username, password } = req.body;
-  const userSql = "SELECT * FROM users WHERE username= ?";
+  const { email, password } = req.body;
+  const userSql = "SELECT * FROM users WHERE email= ?";
   const postsSql = "SELECT * FROM rooms"; 
-  if (!username || !password) { 
-    return res.render('login', { alertMessage: 'Username and password are required.' });
+  if (!email || !password) { 
+    return res.render('login', { alertMessage: 'email and password are required.' });
   } 
   let alert = ""; 
-  con.query(userSql, [username], async (err, userResult) => {
+  con.query(userSql, [email], async (err, userResult) => {
     if (err) {
       console.log(err.message);
       return res.status(500).send('Internal Server Error');
@@ -134,7 +134,7 @@ exports.loginUser = (req, res)=>{
     }  
     else {
       console.log('d'); 
-      req.flash('error', 'Invalid username'); 
+      req.flash('error', 'Invalid email'); 
       res.render("login", { alert,  error: req.flash('error')  });
     }
   }); 
@@ -183,7 +183,8 @@ exports.registerUser = async (req, res) => {
           return res.render('register', { error: req.flash('error') });
         } 
         // Render the 'index' view with the updated list of posts
-        res.render("index", { result: posts });
+        // res.render("login", { result: posts });
+        res.redirect(`/login`);
       });
     });
   });
