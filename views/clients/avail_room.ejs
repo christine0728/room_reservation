@@ -87,7 +87,7 @@
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>    
-
+        <script src="https://kit.fontawesome.com/7528702e77.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="/css/home.css?version=4" />
         <script src="/js/home.js" defer></script>
         <title>Avail Room</title>
@@ -101,62 +101,104 @@
             }
         </style>
     </head>
-    <body>
+    <body style="background-color: white;">
         <%- include('../partials/cl_loggedin_nav.ejs') %>
 
-        <div style="margin-top: 5rem; padding: 6rem 13rem 13rem 13rem;">
+        <div style="margin-top: 5rem; padding: 4rem 13rem 13rem 13rem;">
             <form action="/add_reservation" method="post">
-                <% results1.forEach(res1 => { %>
-                    <div class="row" style="margin: 2rem 0rem 2rem 0rem;">
-                        <div class="col-12" >
-                            <h1>Client Information</h1>
-                        </div>
+                
+                    <div class="row" > 
                         <div style="margin-top: 1rem;"></div>
-                        <input type="hidden" name="client_id" value="<%= res1.id %>" readonly> 
-                        <div class="col-4">
-                            <div class="mb-6">
-                                <label>Fullname:</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res1.firstname %> <%= res1.lastname %>" readonly> 
+                        
+                        <% results1.forEach(res1 => { %>
+                            <input type="hidden" name="client_id" value="<%= res1.id %>" readonly> 
+                        <div class="col-6">
+                            <div class="card">
+                                <div class="card-body"> 
+                                    <h2>Client Information</h2>  
+
+                                    <label style="margin-top: 1rem;">Fullname:</label>
+                                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res1.firstname %> <%= res1.lastname %>" readonly> 
+
+                                    <label style="margin-top: 1rem;">Address:</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res1.address %>" readonly> 
+
+                                    <label style="margin-top: 1rem;">Email:</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res1.email %>" readonly>
+
+                                    <div class="row" style="margin-top: 1rem;">  
+                                        <div class="col-4">
+                                            <label>Birthday:</label>
+                                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).format(new Date(res1.birthday)) %>" readonly> 
+                                        </div> 
+                                        <div class="col-4">
+                                            <label>Contact no.:</label>
+                                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res1.contact_no %>" readonly> 
+                                        </div>
+
+                                        <div class="col-4">
+                                            <label>Gender:</label>
+                                            <% if (res1.gender == 'female') {%>
+                                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="Female" readonly>
+                                            <% } %>
+
+                                            <% if (res1.gender == 'male') {%>
+                                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="Male" readonly>
+                                            <% } %>
+                                        </div>  
+                                    </div>
+                                </div>
                             </div>
-                            <!-- <b>Firstname: <input type="text" name="firstname" value="<%= res1.firstname %>" readonly></b> -->
                         </div>
-                        <div class="col-4">
-                            <div class="mb-3">
-                                <label>Address:</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res1.address %>" readonly> 
-                            </div>
-                            <!-- <b>Lastname: <input type="text" name="lastname" value="<%= res1.lastname %>" readonly></b>  -->
-                        </div>
-                        <div class="col-4">
-                            <div class="mb-3">
-                                <label>Email:</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res1.email %>" readonly> 
-                            </div>
-                            
-                            <!-- <b>Birthday: <input type="date" name="birthday" value="<%= res1.birthday %>" readonly></b>  -->
-                        </div>
-                        <div class="col-4">
-                            <div class="mb-3">
-                                <label>Contact no.:</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res1.contact_no %>" readonly> 
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="mb-3">
-                                <label>Birthday:</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res1.birthday %>" readonly> 
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="mb-3">
-                                <label>Gender:</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res1.gender %>" readonly> 
+                        <% }); %>
+                        <% results2.forEach(res2 => { %>
+                        <div class="col-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h2>Reservation Details</h2>  
+                                    <p style="font-size: large; margin-top: 1rem;">Room name: <b style="font-size: x-large;"><%= res2.room_id %> <%= res2.room_type %></b></p>
+                                    <p class="card-title" style="margin-bottom: 1.5rem;">
+                                    <span style="background-color: #FFEA6D; padding: 0.4rem; border-radius: 0.5rem; font-weight: bold;  margin-right: 0.5rem;">
+                                        <i class="fa-solid fa-peso-sign" style="font-size: 1rem; margin-right: 0.2rem;"></i> 
+                                        <%= res2.price_per_hour %>.00
+                                    </span> 
+                                    <span style="background-color: #FFEA6D; padding: 0.4rem; border-radius: 0.5rem; font-weight: bold; margin-right: 0.5rem;">
+                                        <i class="fa-solid fa-person" style="font-size: 1rem; margin-right: 0.2rem;"></i> <%= res2.capacity %>
+                                    </span>
+
+                                    <span style="background-color: #FFEA6D; padding: 0.4rem; border-radius: 0.5rem; font-weight: bold; margin-right: 0.5rem;">
+                                        <i class="fa-solid fa-ruler" style="font-size: 1rem; margin-right: 0.5rem;"></i>
+                                        <%= res2.area_sqm %> sq m
+                                    </span>
+
+                                    <span style="background-color: #FFEA6D; padding: 0.4rem; border-radius: 0.5rem; font-weight: bold; margin-right: 0.5rem;">
+                                        <i class="fa-solid fa-building" style="font-size: 1rem; margin-right: 0.5rem;"></i>
+                                        <%= res2.room_floor %> floor
+                                    </span>
+
+                                    <hr style="margin: 2rem 0rem 2rem 0rem;">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label>Start date:</label>
+                                            <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="start_date"> 
+                                        </div>
+                                        <div class="col-6">
+                                            <label>End date</label>
+                                            <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="end_date"> 
+                                        </div>
+                                        <div class="col-12" style="float: right; padding: 1rem; margin-top: 2.5rem;">
+                                            <input type="submit" class="button" name="add_reservation" value="Add Reservation">
+                                        </div>
+                                    </div>
+                                    
+                                </div>
                             </div>
                         </div> 
+                        <% }); %> 
                     </div>
-                <% }); %>
+                
                 <hr>
-                <% results2.forEach(res2 => { %>
+                <!-- <% results2.forEach(res2 => { %>
                     <div class="row" style="margin: 2rem 0rem 2rem 0rem;">
                         <div class="col-12" style="margin-top: 1rem;">
                             <h1>Room Information</h1>
@@ -165,23 +207,19 @@
                         <div style="margin-top: 1rem;"></div>
                         <div class="col-3">
                             <label>Room number:</label>
-                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res2.room_number %>" readonly> 
-                            <!-- <b> <input type="text" name="room_num" value=">" readonly></b>  -->
+                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res2.room_number %>" readonly>  
                         </div>
                         <div class="col-3">
                             <label>Capacity:</label>
-                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res2.capacity %> people" readonly>
-                            <!-- <b> <input type="text" name="capacity" value="" readonly></b>   -->
+                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res2.capacity %> people" readonly> 
                         </div>
                         <div class="col-3">
                             <label>Amenities:</label>
-                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res2.amenities %>" readonly>
-                            <!-- <b> <input type="text" name="amenities" value="" readonly></b>  -->
+                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res2.amenities %>" readonly> 
                         </div>
                         <div class="col-3">
                             <label>Price:</label>
-                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res2.price %> pesos" readonly>
-                            <!-- <b> <input type="text" name="price" value="" readonly></b>  -->
+                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= res2.price %> pesos" readonly> 
                         </div>
                     </div>
                 <% }); %>
@@ -201,7 +239,7 @@
                     <div class="col-12" style="float: right; padding: 1rem;">
                         <input type="submit" class="button" name="add_reservation" value="Add Reservation">
                     </div>
-                </div>
+                </div> -->
             </form>
         </div>
         
