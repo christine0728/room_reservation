@@ -21,7 +21,7 @@ body::before {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: #000 url("../images/rooms.jpg") ;
+  background: #000 url("/imgs/rooms.jpg") ;
 
   background-position: center;
   background-size: cover;
