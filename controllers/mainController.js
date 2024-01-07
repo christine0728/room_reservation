@@ -6,6 +6,162 @@ const argon2  = require("argon2");
 exports.getIndex = (req, res) => {
   res.render("mains/main",); 
 };
+exports.getdashboard = (req, res) => {
+  // Query to get the count of rooms
+  const getRoomsCountQuery = "SELECT COUNT(*) AS roomCount FROM rooms";
+  
+  // Query to get the count of users
+  const getUsersCountQuery = "SELECT COUNT(*) AS userCount FROM users";
+  
+  // Query to get the count of reservations
+  const getReservationsCountQuery = "SELECT COUNT(*) AS reservationCount FROM reservations";
+
+  // Execute the queries
+  con.query(getRoomsCountQuery, (errRooms, resultRooms) => {
+    if (errRooms) {
+      console.error(errRooms.message);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+
+    con.query(getUsersCountQuery, (errUsers, resultUsers) => {
+      if (errUsers) {
+        console.error(errUsers.message);
+        return res.status(500).json({ error: 'Internal server error' });
+      }
+
+      con.query(getReservationsCountQuery, (errReservations, resultReservations) => {
+        if (errReservations) {
+          console.error(errReservations.message);
+          return res.status(500).json({ error: 'Internal server error' });
+        }
+
+        // Render the dashboard view with the obtained counts
+        res.render("dashboard", {
+          roomCount: resultRooms[0].roomCount,
+          userCount: resultUsers[0].userCount,
+          reservationCount: resultReservations[0].reservationCount
+        });
+      });
+    });
+  });
+};
+exports.getdashboard = (req, res) => {
+  // Query to get the count of rooms
+  const getRoomsCountQuery = "SELECT COUNT(*) AS roomCount FROM rooms";
+  
+  // Query to get the count of users
+  const getUsersCountQuery = "SELECT COUNT(*) AS userCount FROM users";
+  
+  // Query to get the count of reservations
+  const getReservationsCountQuery = "SELECT COUNT(*) AS reservationCount FROM reservations";
+
+  // Execute the queries
+  con.query(getRoomsCountQuery, (errRooms, resultRooms) => {
+    if (errRooms) {
+      console.error(errRooms.message);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+
+    con.query(getUsersCountQuery, (errUsers, resultUsers) => {
+      if (errUsers) {
+        console.error(errUsers.message);
+        return res.status(500).json({ error: 'Internal server error' });
+      }
+
+      con.query(getReservationsCountQuery, (errReservations, resultReservations) => {
+        if (errReservations) {
+          console.error(errReservations.message);
+          return res.status(500).json({ error: 'Internal server error' });
+        }
+
+        // Render the dashboard view with the obtained counts
+        res.render("dashboard", {
+          roomCount: resultRooms[0].roomCount,
+          userCount: resultUsers[0].userCount,
+          reservationCount: resultReservations[0].reservationCount
+        });
+      });
+    });
+  });
+};
+exports.getdashboard = (req, res) => {
+  // Query to get the count of rooms
+  const getRoomsCountQuery = "SELECT COUNT(*) AS roomCount FROM rooms";
+  
+  // Query to get the count of users
+  const getUsersCountQuery = "SELECT COUNT(*) AS userCount FROM users";
+  
+  // Query to get the count of reservations
+  const getReservationsCountQuery = "SELECT COUNT(*) AS reservationCount FROM reservations";
+
+  // Execute the queries
+  con.query(getRoomsCountQuery, (errRooms, resultRooms) => {
+    if (errRooms) {
+      console.error(errRooms.message);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+
+    con.query(getUsersCountQuery, (errUsers, resultUsers) => {
+      if (errUsers) {
+        console.error(errUsers.message);
+        return res.status(500).json({ error: 'Internal server error' });
+      }
+
+      con.query(getReservationsCountQuery, (errReservations, resultReservations) => {
+        if (errReservations) {
+          console.error(errReservations.message);
+          return res.status(500).json({ error: 'Internal server error' });
+        }
+
+        // Render the dashboard view with the obtained counts
+        res.render("dashboard", {
+          roomCount: resultRooms[0].roomCount,
+          userCount: resultUsers[0].userCount,
+          reservationCount: resultReservations[0].reservationCount
+        });
+      });
+    });
+  });
+};
+exports.getdashboard = (req, res) => {
+  // Query to get the count of rooms
+  const getRoomsCountQuery = "SELECT COUNT(*) AS roomCount FROM rooms";
+  
+  // Query to get the count of users
+  const getUsersCountQuery = "SELECT COUNT(*) AS userCount FROM users";
+  
+  // Query to get the count of reservations
+  const getReservationsCountQuery = "SELECT COUNT(*) AS reservationCount FROM reservations";
+
+  // Execute the queries
+  con.query(getRoomsCountQuery, (errRooms, resultRooms) => {
+    if (errRooms) {
+      console.error(errRooms.message);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+
+    con.query(getUsersCountQuery, (errUsers, resultUsers) => {
+      if (errUsers) {
+        console.error(errUsers.message);
+        return res.status(500).json({ error: 'Internal server error' });
+      }
+
+      con.query(getReservationsCountQuery, (errReservations, resultReservations) => {
+        if (errReservations) {
+          console.error(errReservations.message);
+          return res.status(500).json({ error: 'Internal server error' });
+        }
+
+        // Render the dashboard view with the obtained counts
+        res.render("dashboard", {
+          roomCount: resultRooms[0].roomCount,
+          userCount: resultUsers[0].userCount,
+          reservationCount: resultReservations[0].reservationCount
+        });
+      });
+    });
+  });
+};
 
 exports.getRoom = (req, res)=>{
   const alert = req.query.alert || "";
@@ -18,27 +174,21 @@ exports.getRoom = (req, res)=>{
     res.render("room", {result,  alert });
   });
 };
-
-// Assuming mainCon.js
-exports.postUpdate = (req, res) => { 
-  const { room_id, room_number, description, capacity, amenities, price } = req.body; 
-  const sql = "UPDATE rooms SET room_number = ?, description = ?, capacity = ?, amenities = ?, price = ? WHERE room_id = ?"; 
-  con.query(sql, [room_number, description, capacity, amenities, price, room_id], (err, result) => {
+exports.getAmenities = (req, res)=>{
+  const alert = req.query.alert || "";
+  const sql = "SELECT * FROM amenities";
+  con.query(sql, (err, result) => {
     if (err) {
-      console.error(err.message);
-      return res.status(500).json({ error: 'Internal server error' });
+      console.log(err.message);
+      return;
     } 
-    if (result.affectedRows === 0) {
-      // No rows were affected, meaning the room_id was not found
-      return res.status(404).json({ error: 'Room not found' });
-    }
-    const alert = "Room successfully updated!";
-    res.redirect("/room?alert=" + encodeURIComponent(alert));
-    // Successful update 
+    res.render("admin_amenities", {result,  alert });
   });
 };
-
 // Assuming mainCon.js
+
+
+//reservation controller
 exports.updateStatus = (req, res) => {
   const { reservation_id, status } = req.body;
 
@@ -53,10 +203,54 @@ exports.updateStatus = (req, res) => {
       // No rows were affected, meaning the reservation_id was not found
       return res.status(404).json({ error: 'Reservation not found' });
     } 
+    const alert = "reservation successfully updated!";
     // Successful update
-    return res.status(200).json({ message: 'Status updated successfully' });
+    res.redirect("/admin/reservations?alert=" + encodeURIComponent(alert));
   });
 };
+exports.updatePayment = (req, res) => {
+  const { id } = req.params; 
+  console.log(id);
+
+  // Fetch the current value of 'paid' for the reservation_id
+  const getPaymentStatusQuery = "SELECT paid FROM reservations WHERE reservation_id = ?";
+  con.query(getPaymentStatusQuery, [id], (err, rows) => {
+    if (err) {
+      console.error(err.message);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+
+    if (rows.length === 0) {
+      return res.status(404).json({ error: 'Reservation not found' });
+    }
+
+    const currentPaymentStatus = rows[0].paid;
+
+    // Toggle the 'paid' status (0 to 1, 1 to 0)
+    const newPaymentStatus = currentPaymentStatus === 0 ? 1 : 0;
+
+    // Set paid_date to NOW() if newPaymentStatus is 0, else set it to NULL
+    const paidDateValue = newPaymentStatus === 0 ? 'NOW()' : 'NULL';
+
+    // Update the 'paid' status and 'paid_date' for the reservation_id
+    const updatePaymentQuery = "UPDATE reservations SET paid = ?, paid_date = " + paidDateValue + " WHERE reservation_id = ?";
+    con.query(updatePaymentQuery, [newPaymentStatus, id], (updateErr, result) => {
+      if (updateErr) {
+        console.error(updateErr.message);
+        return res.status(500).json({ error: 'Internal server error' });
+      }
+
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ error: 'Reservation not found' });
+      }
+
+      const alert = "Reservation payment status successfully updated!";
+      res.redirect("/admin/reservations?alert=" + encodeURIComponent(alert));
+    });
+  });
+};
+
+
 
 exports.getUser = (req, res)=>{
   const alert = req.query.alert || "";
@@ -66,14 +260,17 @@ exports.getUser = (req, res)=>{
       console.log(err.message);
       return;
     } 
-    res.render("users", {result,  alert });
+    const success = req.flash('success') || [];
+    const error = req.flash('success') || []; 
+   
+    res.render("users", {result,  alert, error });
   });
 };
 
 exports.getReservation = (req, res) => {
   const alert = req.query.alert || "";
   const sql =
-    "SELECT reservations.*, rooms.room_number, rooms.price, users.username " +
+    "SELECT reservations.*, rooms.*, users.username " +
     "FROM reservations " +
     "JOIN rooms ON reservations.room_id = rooms.room_id " +
     "JOIN users ON reservations.user_id = users.id"; 
@@ -112,7 +309,8 @@ exports.loginUser = (req, res)=>{
           console.log('Session user:', userResult[0]);
           req.session.user = userResult[0]; 
           if (userResult[0].usertype === 'admin') {
-            return res.redirect('/add-post');
+          
+            res.render("dashboard", { user: userResult[0] });
           }
           if (userResult[0].usertype === 'client') {
             let client_id = userResult[0].id;
@@ -190,6 +388,55 @@ exports.registerUser = async (req, res) => {
   });
 };
 
+exports.registerAdmin = async (req, res) => {
+  const { firstname, lastname, birthday, gender, address, contact_no, username, email, password, confirmPassword } = req.body;
+  const hashpass = await argon2.hash(password); 
+  if (!firstname || !lastname || !birthday || !gender || !address || !contact_no || !username || !email || !password || !confirmPassword) {
+    req.flash('error', 'All fields are required.');
+    return res.render('register', { error: req.flash('error') });
+  } 
+  if (password.length < 8) {
+    req.flash('error', 'Password must be at least 8 characters long.');
+    return res.render('register', { error: req.flash('error') });
+  } 
+  if (password !== confirmPassword) {
+    req.flash('error', 'Passwords do not match.');
+    return res.render('register', { error: req.flash('error') });
+  } 
+  const checkExistingSql = "SELECT COUNT(*) AS count FROM users WHERE username = ? OR email = ?";
+  const checkExistingValues = [username, email]; 
+  con.query(checkExistingSql, checkExistingValues, (checkErr, checkResult) => {
+    if (checkErr) {
+      req.flash('error', 'Error checking existing username and email.');
+      return res.render('register', { error: req.flash('error') });
+    }  
+    const existingCount = checkResult[0].count; 
+    if (existingCount > 0) { 
+      req.flash('error', 'Username or email already in use.');
+      return res.render('register', { error: req.flash('error') });
+    } 
+    const insertSql = "INSERT INTO users (firstname, lastname, birthday, gender, address, contact_no, username, email, password, usertype) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    const insertValues = [firstname, lastname, birthday, gender, address, contact_no, username, email, hashpass, 'admin']; 
+    con.query(insertSql, insertValues, (insertErr, insertResult) => {
+      if (insertErr) {
+        req.flash('error', 'Error registering user.');
+        return res.render('register', { error: req.flash('error') });
+      } 
+      req.session.username = username;
+      req.session.email = email;
+      const sqlPosts = "SELECT * FROM rooms"; 
+      con.query(sqlPosts, (selectErr, posts) => {
+        if (selectErr) {
+          req.flash('error', 'Error fetching posts.');
+          return res.render('register', { error: req.flash('error') });
+        } 
+        // Render the 'index' view with the updated list of posts
+        // res.render("login", { result: posts });
+        res.redirect(`/users`);
+      });
+    });
+  });
+};
 exports.home = (req, res) => {
   // res.json(req.body);
   const client_id = req.params.client_id;
@@ -232,6 +479,47 @@ exports.availRoom = (req, res) => {
     });
   });
 }; 
+
+exports.updateAmenities = (req, res) => { 
+  const { id, amenities, description} = req.body; 
+
+
+  console.log(description);
+  const sql = "UPDATE amenities SET name = ?, description = ? WHERE id = ?"; 
+  con.query(sql, [amenities, description, id], (err, result) => {
+    if (err) {
+      console.error(err.message);
+      return res.status(500).json({ error: 'Internal server error' });
+    } 
+    if (result.affectedRows === 0) {
+      // No rows were affected, meaning the room_id was not found
+      return res.status(404).json({ error: 'Amenities not found' });
+    }
+    const alert = "Amenities successfully updated!";
+    res.redirect("/amenities?alert=" + encodeURIComponent(alert));
+    // Successful update 
+  });
+};
+
+exports.postAmenities = (req, res) => {
+  let amenities = req.body.amenities;
+  let desc = req.body.description;
+
+  let alert = "Amenities successfully inserted!";
+ 
+  const sql =
+    "INSERT INTO amenities (name, description) VALUES ( ?, ?)";
+  con.query(sql, [amenities, desc], (err, result) => {
+    if (err) {
+      // console.log(err.message);
+      alert = err.message;
+    } else {
+      let alert = "Amenities successfully inserted!";
+    }
+    // res.json(req.body);
+    res.redirect("/amenities?alert=" + encodeURIComponent(alert));
+  });
+};
 
 exports.addReservation = (req, res) => {
   let room_id = req.body.room_id;
@@ -379,33 +667,6 @@ exports.addPost = (req, res) => {
 };
 
 // insert room
-exports.postInsert = (req, res) => {
-
-  let room_number = req.body.room_number;
-  let description = req.body.description;
-
-  let capacity = req.body.capacity;
-  let amenities = req.body.amenities;
-  let price = req.body.price;
-
-  let alert;
-
-  const sql =
-    "INSERT INTO rooms (room_number, description, capacity, amenities, price) VALUES (?, ?, ?, ?, ?)";
-
-  con.query(sql, [room_number, description, capacity, amenities, price], (err, result) => {
-    if (err) {
-      console.error(err.message);
-      alert = err.message;
-    } else {
-      alert = "Room successfully inserted!";
-    }
-
-    // Redirect with the alert message
-    res.redirect("/room?alert=" + encodeURIComponent(alert));
-
-  });
-};
 
 // mainCon.js (or your main controller file)
 exports.postDelete = (req, res) => {
@@ -429,5 +690,69 @@ console.log(roomId);
         res.redirect("/room?alert=" + encodeURIComponent(alert));
       }
     }
+  });
+};
+
+const fs = require('fs');
+const path = require('path');
+//roomController
+const imageDir = path.join(__dirname, 'public', 'imgs');
+
+exports.postInsert = (req, res) => {
+  let room_type = req.body.room_type;
+  let room_floor = req.body.room_floor;
+  let area_sqm = req.body.area_sqm;
+  let capacity = req.body.capacity;
+  let amenities = req.body.amenities;
+  let price = req.body.price;
+  let image = req.body.image;
+  let alert;
+console.log(image);
+  if (image ) {
+    const imageFile = req.files.image;
+    const imageFileName = 'image-' + Date.now() + path.extname(imageFile.name);
+    const imagePath = path.join(imageDir, imageFileName);
+
+    // Save the image to public/images
+    fs.writeFileSync(imagePath, imageFile.data);
+
+    const sql =
+      "INSERT INTO rooms (room_type, room_floor, capacity, amenities, price_per_hour, area_sqm, image) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+    con.query(sql, [room_type, room_floor, capacity, amenities, price, area_sqm, imageFileName], (err, result) => {
+      if (err) {
+        console.error(err.message);
+        alert = "Error inserting room: " + err.message;
+      } else {
+        alert = "Room successfully inserted!";
+      }
+
+      // Redirect with the alert message
+      res.redirect("/room?alert=" + encodeURIComponent(alert));
+    });
+  } else {
+    // Handle the case where no file is provided
+    alert = "Error: No image provided.";
+    res.redirect("/room?alert=" + encodeURIComponent(alert));
+  }
+};
+
+exports.postUpdate = (req, res) => { 
+  console.log('Request Body:', req.body);
+  const { room_id, room_type, room_floor, capacity, amenities, price, '\tarea_sqm': area_sqm } = req.body;
+
+  const sql = "UPDATE rooms SET room_type = ?, room_floor = ?, capacity = ?, amenities = ?, price_per_hour = ? WHERE room_id = ?"; 
+  con.query(sql, [room_type, room_floor, capacity, amenities, price, room_id], (err, result) => {
+    if (err) {
+      console.error(err.message);
+      return res.status(500).json({ error: 'Internal server error' });
+    } 
+    if (result.affectedRows === 0) {
+      // No rows were affected, meaning the room_id was not found
+      return res.status(404).json({ error: 'Room not found' });
+    }
+    const alert = "Room successfully updated!";
+    res.redirect("/room?alert=" + encodeURIComponent(alert));
+    // Successful update 
   });
 };
