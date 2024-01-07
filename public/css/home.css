@@ -52,8 +52,6 @@ body {
 
 ul {
   list-style: none;
-  /* Color highlighting when pressed on mobile devices */
-  /*-webkit-tap-highlight-color: transparent;*/
 }
 
 a {
@@ -358,6 +356,7 @@ a {
 }
 
 
+
 .image-section {
   position: relative;
   width: 100%;
@@ -598,4 +597,10 @@ color: #ff5e14;
 .footer-menu li a {
 font-size: 14px;
 color: #878787;
+}
+.linkedin-bg {
+  background: #3B5998;
+  padding: 5px; /* Adjust as needed */
+  border-radius: 5px; /* Optional: Add rounded corners */
+  color: white; /* Optional: Set text color to white for better contrast */
 }

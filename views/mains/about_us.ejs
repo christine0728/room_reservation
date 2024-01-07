@@ -1,104 +1,189 @@
 <!DOCTYPE html>
-   <html lang="en">
+<html lang="en">
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
       <%- include('../partials/scripts.ejs') %>
-
-      <link rel="stylesheet" href="/css/home.css" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link rel="stylesheet" href="/css/about_us.css" />
       <script src="/js/home.js" defer></script>
       <title>About Us</title>
    </head>
    <body>
-      <%- include('../partials/client_nav.ejs') %> <br><br><br><br><br><br><br><br><br>
+      <%- include('../partials/client_nav.ejs') %>
+      <br><br><br><br><br><br>
+
+
+      <center> <h1 style="font-weight:bold; font-size:65px">Welcome to Casa De Kwatro</h1></center><br><br><br>
+      <div class="carousel-container">
+         <div class="carousel">
+            <img src="./imgs/rooms1.jpg" alt="Rooms 1">
+            <img src="./imgs/rooms2.jpg" alt="Rooms 2">
+            <img src="./imgs/rooms3.jpg" alt="Rooms 3">
+            <img src="./imgs/rooms4.jpg" alt="Rooms 4">
+            <img src="./imgs/rooms5.jpg" alt="Rooms 5">
+            <img src="./imgs/rooms6.jpg" alt="Rooms 6">
+            <!-- Add more images as needed -->
+         </div>
+      </div><br><br><br>
+
+
+      <div class="main-section">
+         <div class="text-container">
+            <h2>Where Casa Meets Charm</h2>
+            <p>Casa De Kwatro is your cozy retreat in the heart of Pangasinan. We believe in making your stay special by combining style with warmth.</p>
+         </div>
+         <div class="image-container">
+            <img src="./imgs/rooms.jpg" alt="Image Description">
+         </div>
+      </div>
+
+      <br><br><br>
+
+      <div class="main-section">
+         <div class="image-container">
+            <img src="./imgs/rooms1.jpg" alt="Image Description">
+         </div>
+         <div class="text-container">
+            <h2>Our Story</h2>
+            <p>Casa De Kwatro is all about four things - being fancy yet cozy, quiet yet lively, serving you exceptionally well, and bringing together different cultures. It's a place where you can relax and feel at home.</p>
+         </div>
+      </div>
+
+      <br><br><br>
+
+      <div class="main-section">
+         <div class="text-container">
+            <h2>Comfortable Elegance</h2>
+            <p>Our place is designed to look really nice but also feel like home. From the front desk to your room, we've put in a lot of effort to make everything just right.</p>
+         </div>
+         <div class="image-container">
+            <img src="./imgs/rooms2.jpg" alt="Image Description">
+         </div>
+      </div>
+
+      <br><br><br>
+
+      <div class="main-section">
+         <div class="image-container">
+            <img src="./imgs/rooms3.jpg" alt="Image Description">
+         </div>
+         <div class="text-container">
+            <h2>Peaceful Atmosphere</h2>
+            <p>Take a break from the busy world and find some peace here. The gardens, the inside of the hotel - everything is made to be calming. No matter why you're here, you'll feel relaxed.</p>
+         </div>
+      </div>
+
+      <br><br><br>
+
+      <div class="main-section">
+         <div class="text-container">
+            <h2>Great Service</h2>
+            <p>Our team is here to help you. We want your stay to be awesome, so if there's anything you need, just let us know. We like to make sure you have everything you want.</p>
+         </div>
+         <div class="image-container">
+            <img src="./imgs/rooms4.jpg" alt="Image Description">
+         </div>
+      </div>
+
+      <br><br><br>
+
+      <div class="main-section">
+         <div class="image-container">
+            <img src="./imgs/rooms5.jpg" alt="Image Description">
+         </div>
+         <div class="text-container">
+            <h2>Mix Cultures</h2>
+            <p>We've tried to include a bit of everything from the local area in our place. From the art on the walls to the food we serve, it's all about celebrating different things. We want you to feel like you're part of something special.</p>
+         </div>
+      </div>
+
+      <br><br><br>
+
+      <div class="main-section">
+         <div class="text-container">
+            <h2>Your Second home</h2>
+            <p>If you're a traveler or if this is your first time away, Casa De Kwatro is ready to make you feel at home. Stay in our comfy rooms, enjoy good food, and soak in the relaxed vibe.
+               At Casa De Kwatro, we don't just give you a place to stay; we give you a cool experience. Come hang out with us where every moment is about enjoying life, feeling pampered, and being welcomed like family.
+            </p>
+         </div>
+         <div class="image-container">
+            <img src="./imgs/rooms6.jpg" alt="Image Description">
+         </div>
+      </div>
+
+      <br><br><br>
+
       <footer class="footer-section">
          <div class="container">
-             <div class="footer-cta pt-5 pb-5">
-                 <div class="row">
-                     <div class="col-xl-4 col-md-4 mb-30">
-                         <div class="single-cta">
-                             <i class="fas fa-map-marker-alt"></i>
-                             <div class="cta-text">
-                                 <h4>Find us</h4>
-                                 <span>Urdaneta City, Pangasinan, Philippines</span>
-                             </div>
-                         </div>
+            <div class="footer-cta pt-5 pb-5">
+               <div class="row">
+                  <div class="col-xl-4 col-md-4 mb-30">
+                     <div class="single-cta">
+                        <i class="fa fa-map-marker"></i>
+                        <div class="cta-text">
+                           <h4>Find us</h4>
+                           <span>Urdaneta City, Pangasinan, Philippines</span>
+                        </div>
                      </div>
-                     <div class="col-xl-4 col-md-4 mb-30">
-                         <div class="single-cta">
-                             <i class="fas fa-phone"></i>
-                             <div class="cta-text">
-                                 <h4>Call us</h4>
-                                 <span>+639 889 221 129</span>
-                             </div>
-                         </div>
+                  </div>
+                  <div class="col-xl-4 col-md-4 mb-30">
+                     <div class="single-cta">
+                        <i class="fa fa-phone"></i>
+                        <div class="cta-text">
+                           <h4>Call us</h4>
+                           <span>+639 889 221 129</span>
+                        </div>
                      </div>
-                     <div class="col-xl-4 col-md-4 mb-30">
-                         <div class="single-cta">
-                             <i class="far fa-envelope-open"></i>
-                             <div class="cta-text">
-                                 <h4>Mail us</h4>
-                                 <span>casadekwarto@gmail.com</span>
-                             </div>
-                         </div>
+                  </div>
+                  <div class="col-xl-4 col-md-4 mb-30">
+                     <div class="single-cta">
+                        <i class="fa fa-envelope"></i>
+                        <div class="cta-text">
+                           <h4>Mail us</h4>
+                           <span>casadekwarto@gmail.com</span>
+                        </div>
                      </div>
-                 </div>
-             </div>
-             <div class="footer-content pt-5 pb-5">
-                 <div class="row">
-                     <div class="col-xl-4 col-lg-4 mb-50">
-                         <div class="footer-widget">
-                             <div class="footer-logo">
-                                 <a href="home1.html"><img src="./imgs/cdk.png" class="img-fluid" alt="logo"></a>
-                             </div>
-                             <div class="footer-text">
-                                 <p>Casa de Kwarto offers seamless room reservation services, providing a hassle-free and comfortable experience for your accommodation needs.</p>
-                             </div>
-                             <div class="footer-social-icon">
-                                 <span>Follow us</span>
-                                 <a href="#"><i class="fab fa-facebook-f facebook-bg"></i></a>
-                                 <a href="#"><i class="fab fa-twitter twitter-bg"></i></a>
-                                 <a href="#"><i class="fab fa-google-plus-g google-bg"></i></a>
-                             </div>
-                         </div>
+                  </div>
+               </div>
+            </div>
+            <div class="footer-content pt-5 pb-5">
+               <div class="row">
+                  <div class="col-xl-4 col-lg-4 mb-50">
+                     <div class="footer-widget">
+                        <div class="footer-logo">
+                           <a href="home1.html"><img src="./imgs/cdk.png" class="img-fluid" alt="logo" height="100" width="100"></a>
+                        </div>
+                        <div class="footer-text">
+                           <p>Casa de Kwarto offers seamless room reservation services, providing a hassle-free and comfortable experience for your accommodation needs.</p>
+                        </div>
                      </div>
-                     <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
-                         <div class="footer-widget">
-                             <div class="footer-widget-heading">
-                                 <h3>Menu Links</h3>
-                             </div>
-                             <ul>
-                                 <li><a href="#">Home</a></li>
-                                 <li><a href="#">About</a></li>
-                                 <li><a href="#">Our Room</a></li>
-                                 <li><a href="#">Gallery</a></li>
-                                 <li><a href="#">Contact Us</a></li>
-                                 
-                             </ul>
-                         </div>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
+                     <div class="footer-widget">
+                        <div class="footer-widget-heading">
+                           <h3>Menu Links</h3>
+                        </div>
+                        <ul>
+                           <li><a href="#" target="_blank">Home</a></li>
+                           <li><a href="#" target="_blank">About</a></li>
+                           <li><a href="#" target="_blank">Our Room</a></li>
+                           <li><a href="#" target="_blank">Contact Us</a></li>
+                        </ul>
                      </div>
-                     <div class="col-xl-4 col-lg-4 col-md-6 mb-50">
-                         <div class="footer-widget">
-                             <div class="footer-widget-heading">
-                                 <h3>Subscribe</h3>
-                             </div>
-                             <div class="footer-text mb-25">
-                                 <p>Don’t miss to subscribe to our new feeds, kindly fill the form below.</p>
-                             </div>
-                             <div class="subscribe-form">
-                                 <form action="#">
-                                     <input type="text" placeholder="Email Address">
-                                     <button><i class="fab fa-telegram-plane"></i></button>
-                                 </form>
-                             </div>
-                         </div>
-                     </div>
-                 </div>
-             </div>
+                  </div>
+                  <div class="footer-social-icon">
+                     <span>Follow us</span>
+                     <a href="https://web.facebook.com/?stype=lo&deoia=1&jlou=AfegbPwXdGwhqFAvm-QncywxshjoO2vO7cFEz4N5nMOHb1b6q_Ewg9p21nxXJeHsKtIbe7KCOsmvwV-MkHZB6csYMa3YGSHUldgENkfkqcWe9A&smuh=42707&lh=Ac9ni0qd6--5I_t3EJ0" target="_blank"><i class="fa fa-facebook facebook-bg"></i>Facebook</a>
+                     <a href="https://twitter.com/i/flow/login" target="_blank"><i class="fa fa-twitter twitter-bg"></i>Twitter</a>
+                     <a href="https://www.linkedin.com/login" target="_blank"><i class="fa fa-linkedin linkedin-bg"></i>LinkedIn</a>
+                  </div>
+               </div>
+            </div>
          </div>
          <div class="footer" >
             <span class="copyright-symbol">Casa De Kwarto &copy; 2023. All Rights Reserved.</span>
          </div>
-      </footer> 
+      </footer>
    </body>
 </html>

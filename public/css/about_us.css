@@ -520,3 +520,79 @@ color: #ff5e14;
 font-size: 14px;
 color: #878787;
 }
+
+
+.linkedin-bg {
+  background: #3B5998;
+  padding: 5px; /* Adjust as needed */
+  border-radius: 5px; /* Optional: Add rounded corners */
+  color: white; /* Optional: Set text color to white for better contrast */
+}
+
+
+
+#highlight{
+  color: #e0a80f
+}
+
+
+
+h2{
+  text-align: center;
+}
+.main-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.text-container,
+.image-container {
+  width: 48%; /* Adjust as needed, leaving a small gap between elements */
+  margin-bottom: 20px; /* Space between image and text */
+}
+
+.text-container p {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #333;
+}
+
+.image-container img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+
+
+.carousel-container {
+  overflow: hidden;
+}
+
+.carousel {
+  display: flex;
+  animation: scroll 10s linear infinite; /* Adjust the duration as needed */
+}
+
+.carousel img {
+  width: 100%;
+  object-fit: cover;
+}
+
+/* Keyframe animation for scrolling */
+@keyframes scroll {
+  0% {
+     transform: translateX(0);
+  }
+  100% {
+     transform: translateX(-100%); /* Adjust as needed based on the number of images */
+  }
+}
+
+/* Adjust as needed */
+.main-section {
+  margin-top: 20px;
+}
