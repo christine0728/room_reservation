@@ -165,15 +165,27 @@ exports.getdashboard = (req, res) => {
 
 exports.getRoom = (req, res)=>{
   const alert = req.query.alert || "";
+  // const sql = "SELECT * FROM rooms";
+
   const sql = "SELECT * FROM rooms";
+  const sql2 = "SELECT * FROM amenities";
   con.query(sql, (err, result) => {
-    if (err) {
-      console.log(err.message);
-      return;
-    } 
-    res.render("room", {result,  alert });
+    if (err) throw err; 
+    con.query(sql2, (err, result1) => {
+      if (err) throw err; 
+      res.render("room", {result, result1,  alert });
+    });
   });
+ 
+  // con.query(sql, (err, result) => {
+  //   if (err) {
+  //     console.log(err.message);
+  //     return;
+  //   } 
+  //   res.render("room", {result,  alert });
+  // });
 };
+
 exports.getAmenities = (req, res)=>{
   const alert = req.query.alert || "";
   const sql = "SELECT * FROM amenities";
@@ -254,7 +266,7 @@ exports.updatePayment = (req, res) => {
 
 exports.getUser = (req, res)=>{
   const alert = req.query.alert || "";
-  const sql = "SELECT * FROM users";
+  const sql = "SELECT * FROM users where usertype='admin'";
   con.query(sql, (err, result) => {
     if (err) {
       console.log(err.message);

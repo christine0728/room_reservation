@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>PSU Library</title>
+    <title>Reservations</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="/css/fontawesome.min.css">
     <!-- icheck bootstrap -->
@@ -14,7 +14,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -52,13 +54,13 @@
   <div class="container">
     <div class="row justify-content-center align-items-start">
         <div class="col-12">
-            <h1>Room List</h1>
+            <h1>Reservations List</h1>
 
             <% if (alert) { %>
                 <div class="alert alert-info"><%= alert %></div>
             <% } %> <br>
     
-            <table id="example" class="display resposive nowrap mt-5 table-responsive-sm" style="width:100%;">
+            <table id="reservsTbl" class="display resposive nowrap mt-5 table-responsive-sm" style="width:100%;">
                 <thead class="">
                     <tr>
                         <th>Username</th>
@@ -291,6 +293,8 @@
     </div>
   </div>
 
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 <script>
   function confirmPaid(roomId) {
       var confirmation = confirm('Update payment');
@@ -325,13 +329,17 @@
     function populateEditModal(roomId, numType, roomFloor, capacity, amenities, price, area_sqm, paid) {
         // Set the values in the modal input fields
         document.getElementById('edit_room_id').textContent = roomId;
-document.getElementById('edit_room_type').textContent = numType;
-document.getElementById('edit_room_floor').textContent = roomFloor;
-document.getElementById('edit_capacity').textContent = capacity;
-document.getElementById('edit_amenities').textContent = amenities;
-document.getElementById('edit_price').textContent = price;
-document.getElementById('edit_area_sqm').textContent = area_sqm;
-document.getElementById('edit_paid').textContent = paid;
+        document.getElementById('edit_room_type').textContent = numType;
+        document.getElementById('edit_room_floor').textContent = roomFloor;
+        document.getElementById('edit_capacity').textContent = capacity;
+        document.getElementById('edit_amenities').textContent = amenities;
+        document.getElementById('edit_price').textContent = price;
+        document.getElementById('edit_area_sqm').textContent = area_sqm;
+        document.getElementById('edit_paid').textContent = paid;
 
     }
+
+    $(document).ready(function() {
+        $('#reservsTbl').DataTable();
+    });
 </script>
