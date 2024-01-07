@@ -49,44 +49,46 @@
                         <% }); %>
                         </tbody>
                     </table> -->
+                    <div class="row">
+                        <% rooms.forEach(room => { %>
+                            <div class="col-4">
+                                <div class="card" style="width: 18rem;">
+                                    <img src="<%= room.image ? '/imgs/' + room.image : '/imgs/home.jpg' %>" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h4 class="card-title" style="margin-bottom: 1.5rem; font-weight: bold;"><%= room.room_id %> <%= room.room_type %></h4>
+                                        <p class="card-title" style="margin-bottom: 1.5rem;">
+                                            <span style="background-color: #FFEA6D; padding: 0.4rem; border-radius: 0.5rem; font-weight: bold;  margin-right: 0.5rem;">
+                                                <i class="fa-solid fa-peso-sign" style="font-size: 1rem; margin-right: 0.2rem;"></i> 
+                                                <%= room.price_per_hour %>.00
+                                            </span> 
+                                            <span style="background-color: #FFEA6D; padding: 0.4rem; border-radius: 0.5rem; font-weight: bold; ">
+                                                <i class="fa-solid fa-person" style="font-size: 1rem; margin-right: 0.2rem;"></i> <%= room.capacity %>
+                                            </span>
+                                        </p>
+        
+                                        <p class="card-title" style="margin-bottom: 1.5rem;">
+                                            <span style="background-color: #FFEA6D; padding: 0.4rem; border-radius: 0.5rem; font-weight: bold;  margin-right: 0.5rem;">
+                                                <i class="fa-solid fa-building" style="font-size: 1rem; margin-right: 0.2rem;"></i> 
+                                                <%= room.room_floor %> floor
+                                            </span>  
 
-                    <% rooms.forEach(room => { %>
-                        <div class="col-4">
-                            <div class="card" style="width: 18rem;">
-                                <img src="/imgs/rooms.jpg" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h4 class="card-title" style="margin-bottom: 1.5rem; font-weight: bold;"><%= room.room_id %> <%= room.room_type %></h4>
-                                    <p class="card-title" style="margin-bottom: 1.5rem;">
-                                        <span style="background-color: #FFEA6D; padding: 0.4rem; border-radius: 0.5rem; font-weight: bold;  margin-right: 0.5rem;">
-                                            <i class="fa-solid fa-peso-sign" style="font-size: 1rem; margin-right: 0.2rem;"></i> 
-                                            <%= room.price_per_hour %>.00
-                                        </span> 
-                                        <span style="background-color: #FFEA6D; padding: 0.4rem; border-radius: 0.5rem; font-weight: bold; ">
-                                            <i class="fa-solid fa-person" style="font-size: 1rem; margin-right: 0.2rem;"></i> <%= room.capacity %>
-                                        </span>
-                                    </p>
-    
-                                    <p class="card-title" style="margin-bottom: 1.5rem;">
-                                        <span style="background-color: #FFEA6D; padding: 0.4rem; border-radius: 0.5rem; font-weight: bold;  margin-right: 0.5rem;">
-                                            <i class="fa-solid fa-building" style="font-size: 1rem; margin-right: 0.2rem;"></i> 
-                                            <%= room.room_floor %> floor
-                                        </span>  
-
-                                        <span style="background-color: #FFEA6D; padding: 0.4rem; border-radius: 0.5rem; font-weight: bold;  margin-right: 0.5rem;">
-                                            <i class="fa-solid fa-ruler" style="font-size: 1rem; margin-right: 0.5rem;"></i>
-                                            <%= room.area_sqm %> sq m
-                                        </span>
-                                    </p> 
-                                    <p class="card-text">
-                                        <span style="background-color: #FFEA6D; padding: 0.4rem; border-radius: 0.5rem; font-weight: bold;  margin-right: 0.5rem;">
-                                        <i class="fa-solid fa-suitcase" style="font-size: 1rem; margin-right: 0.5rem;"></i>
-                                            <%= room.amenities %>
-                                        </span>
-                                    </p>
+                                            <span style="background-color: #FFEA6D; padding: 0.4rem; border-radius: 0.5rem; font-weight: bold;  margin-right: 0.5rem;">
+                                                <i class="fa-solid fa-ruler" style="font-size: 1rem; margin-right: 0.5rem;"></i>
+                                                <%= room.area_sqm %> sq m
+                                            </span>
+                                        </p> 
+                                        <p class="card-text">
+                                            <span style="background-color: #FFEA6D; padding: 0.4rem; border-radius: 0.5rem; font-weight: bold;  margin-right: 0.5rem;">
+                                            <i class="fa-solid fa-suitcase" style="font-size: 1rem; margin-right: 0.5rem;"></i>
+                                                <%= room.amenities %>
+                                            </span>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         <% }); %>
+                    </div>
+
                 </div>
             </div>
             

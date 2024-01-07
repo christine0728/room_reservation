@@ -4,8 +4,22 @@ const con = require("../db/connection");
 const argon2  = require("argon2");
 
 exports.getIndex = (req, res) => {
-  res.render("mains/main",); 
+  const sql = "SELECT * FROM rooms";
+  con.query(sql, (err, rooms) => { 
+    res.render("mains/main", { rooms });
+  });
+  // res.render("mains/main",); 
 };
+
+exports.getmainRooms = (req, res) => {
+  const sql = "SELECT * FROM rooms";
+  con.query(sql, (err, rooms) => { 
+    res.render("mains/all_rooms", { rooms });
+  });
+  // res.render("mains/main",); 
+};
+
+
 exports.getdashboard = (req, res) => {
   // Query to get the count of rooms
   const getRoomsCountQuery = "SELECT COUNT(*) AS roomCount FROM rooms";
