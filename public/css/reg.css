@@ -24,7 +24,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: #000 url("../images/house.jpg");
+    background: #000 url("../imgs/house.jpg");
     background-position: center;
     background-size: cover;
   }
