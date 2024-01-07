@@ -7,7 +7,8 @@ const islogin = (req, res, next) => {
     next();
   } else { 
     console.log("Redirecting to login");
-    res.redirect("/login");
+    const error = req.flash('error') || [];  
+    res.render("login", { error }); 
   }
 };
 
@@ -29,11 +30,16 @@ router.get("/admin/dashboard",mainCon.getdashboard);
 
 
 router.post("/login-user",  mainCon.loginUser);
-router.get("/login", (req, res) => {
+router.get("/login", islogin, (req, res) => {
   const error = req.flash('error') || [];  
-  res.render("login", { error }); 
-});
+  res.redirect("/admin/dashboard");
 
+});
+router.get('/registeradmin', (req, res) => { 
+  const success = req.flash('success') || [];
+  const error = req.flash('success') || []; 
+  res.render('registeradmin', { success,error, });
+});
 router.post("/register-user", mainCon.registerUser);
 router.post("/register-admin", mainCon.registerAdmin);
 router.get('/register', (req, res) => { 

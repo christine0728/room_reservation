@@ -321,13 +321,14 @@ exports.loginUser = (req, res)=>{
     if (userResult.length > 0) {
       const hashpass = userResult[0].password; 
       if (await argon2.verify(hashpass, password)) { 
+        req.session.user = userResult[0]; 
         con.query(postsSql, (err, result) => {
           if (err) {
             console.log(err.message);
             return res.status(500).send('Internal Server Error');
           } 
           console.log('Session user:', userResult[0]);
-          req.session.user = userResult[0]; 
+          
           if (userResult[0].usertype === 'admin') {
             return res.redirect(`/admin/dashboard`);
          
@@ -411,36 +412,37 @@ exports.registerUser = async (req, res) => {
 exports.registerAdmin = async (req, res) => {
   const { firstname, lastname, birthday, gender, address, contact_no, username, email, password, confirmPassword } = req.body;
   const hashpass = await argon2.hash(password); 
+ 
   if (!firstname || !lastname || !birthday || !gender || !address || !contact_no || !username || !email || !password || !confirmPassword) {
     req.flash('error', 'All fields are required.');
-    return res.render('register', { error: req.flash('error') });
+    return res.render('registeradmin', { error: req.flash('error') });
   } 
   if (password.length < 8) {
     req.flash('error', 'Password must be at least 8 characters long.');
-    return res.render('register', { error: req.flash('error') });
+    return res.render('registeradmin', { error: req.flash('error') });
   } 
   if (password !== confirmPassword) {
     req.flash('error', 'Passwords do not match.');
-    return res.render('register', { error: req.flash('error') });
+    return res.render('registeradmin', { error: req.flash('error') });
   } 
   const checkExistingSql = "SELECT COUNT(*) AS count FROM users WHERE username = ? OR email = ?";
   const checkExistingValues = [username, email]; 
   con.query(checkExistingSql, checkExistingValues, (checkErr, checkResult) => {
     if (checkErr) {
       req.flash('error', 'Error checking existing username and email.');
-      return res.render('register', { error: req.flash('error') });
+      return res.render('registeradmin', { error: req.flash('error') });
     }  
     const existingCount = checkResult[0].count; 
     if (existingCount > 0) { 
       req.flash('error', 'Username or email already in use.');
-      return res.render('register', { error: req.flash('error') });
+      return res.render('registeradmin', { error: req.flash('error') });
     } 
     const insertSql = "INSERT INTO users (firstname, lastname, birthday, gender, address, contact_no, username, email, password, usertype) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     const insertValues = [firstname, lastname, birthday, gender, address, contact_no, username, email, hashpass, 'admin']; 
     con.query(insertSql, insertValues, (insertErr, insertResult) => {
       if (insertErr) {
         req.flash('error', 'Error registering user.');
-        return res.render('register', { error: req.flash('error') });
+        return res.render('registeradmin', { error: req.flash('error') });
       } 
       req.session.username = username;
       req.session.email = email;
@@ -448,7 +450,7 @@ exports.registerAdmin = async (req, res) => {
       con.query(sqlPosts, (selectErr, posts) => {
         if (selectErr) {
           req.flash('error', 'Error fetching posts.');
-          return res.render('register', { error: req.flash('error') });
+          return res.render('registeradmin', { error: req.flash('error') });
         } 
         // Render the 'index' view with the updated list of posts
         // res.render("login", { result: posts });
@@ -724,7 +726,7 @@ console.log(roomId);
     if (err) {
       console.error(err.message);
       // Handle the error, send an error response, or redirect to an error page
-      res.status(500).send("Internal Server Error");
+      res.render("internalproblem", { });
     } else {
       // Check if any rows were affected (indicating a successful deletion)
       if (result.affectedRows > 0) {
@@ -738,43 +740,50 @@ console.log(roomId);
     }
   });
 };
-
-const fs = require('fs');
 const path = require('path');
-//roomController
-const imageDir = path.join(__dirname, 'public', 'imgs');
+// Your existing route handling the form submission
+exports.postInsert= (req, res) => {
+  const imageDir = path.join(__dirname, '..', 'public', 'imgs');
 
-exports.postInsert = (req, res) => {
-  let room_type = req.body.room_type;
-  let room_floor = req.body.room_floor;
-  let area_sqm = req.body.area_sqm;
-  let capacity = req.body.capacity;
-  let amenities = req.body.amenities;
-  let price = req.body.price;
-  let image = req.body.image;
-  let alert;
-console.log(image);
-  if (image ) {
+
+
+  const room_type = req.body.room_type;
+  const room_floor = req.body.room_floor;
+  const area_sqm = req.body.area_sqm;
+  const capacity = req.body.capacity;
+  const amenities = req.body.amenities;
+  const price = req.body.price;
+
+
+  console.log(room_floor);
+
+  if (req.files && req.files.image) {
     const imageFile = req.files.image;
     const imageFileName = 'image-' + Date.now() + path.extname(imageFile.name);
     const imagePath = path.join(imageDir, imageFileName);
 
     // Save the image to public/images
-    fs.writeFileSync(imagePath, imageFile.data);
-
-    const sql =
-      "INSERT INTO rooms (room_type, room_floor, capacity, amenities, price_per_hour, area_sqm, image) VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-    con.query(sql, [room_type, room_floor, capacity, amenities, price, area_sqm, imageFileName], (err, result) => {
+    imageFile.mv(imagePath, (err) => {
       if (err) {
         console.error(err.message);
-        alert = "Error inserting room: " + err.message;
+        alert = "Error saving image: " + err.message;
+        res.redirect("/room?alert=" + encodeURIComponent(alert));
       } else {
-        alert = "Room successfully inserted!";
-      }
+        const sql =
+          "INSERT INTO rooms (room_type, room_floor, capacity, amenities, price_per_hour, area_sqm, image) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-      // Redirect with the alert message
-      res.redirect("/room?alert=" + encodeURIComponent(alert));
+        con.query(sql, [room_type, room_floor, capacity, amenities, price, area_sqm, imageFileName], (err, result) => {
+          if (err) {
+            console.error(err.message);
+            alert = "Error inserting room: " + err.message;
+          } else {
+            alert = "Room successfully inserted!";
+          }
+
+          // Redirect with the alert message
+          res.redirect("/room?alert=" + encodeURIComponent(alert));
+        });
+      }
     });
   } else {
     // Handle the case where no file is provided
@@ -783,22 +792,23 @@ console.log(image);
   }
 };
 
-exports.postUpdate = (req, res) => { 
-  console.log('Request Body:', req.body);
-  const { room_id, room_type, room_floor, capacity, amenities, price, '\tarea_sqm': area_sqm } = req.body;
+exports.postUpdate = (req, res) => {
+  const { room_id, room_type, room_floor, capacity, amenities, price, areasqm, image } = req.body;
 
-  const sql = "UPDATE rooms SET room_type = ?, room_floor = ?, capacity = ?, amenities = ?, price_per_hour = ? WHERE room_id = ?"; 
-  con.query(sql, [room_type, room_floor, capacity, amenities, price, room_id], (err, result) => {
+  const sql = "UPDATE rooms SET room_type = ?, room_floor = ?, capacity = ?, amenities = ?, area_sqm = ?, price_per_hour = ? WHERE room_id = ?";
+  con.query(sql, [room_type, room_floor, capacity, amenities, areasqm, price, room_id], (err, result) => {
     if (err) {
       console.error(err.message);
       return res.status(500).json({ error: 'Internal server error' });
-    } 
+    }
+
     if (result.affectedRows === 0) {
       // No rows were affected, meaning the room_id was not found
       return res.status(404).json({ error: 'Room not found' });
     }
+
     const alert = "Room successfully updated!";
     res.redirect("/room?alert=" + encodeURIComponent(alert));
-    // Successful update 
+    // Successful update
   });
 };

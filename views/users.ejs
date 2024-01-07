@@ -52,12 +52,19 @@
     <div class="row justify-content-center align-items-start">
         <div class="col-12">
             <h1>User List</h1>
+<<<<<<< Updated upstream
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAdd" style="margin-bottom: 2rem;">+ register</button>
 
+=======
+            <a href="/registeradmin">
+            <button type="button" class="btn btn-primary" >+ register</button>
+</a>
+>>>>>>> Stashed changes
             <% if (alert) { %>
                 <div class="alert alert-info"><%= alert %></div>
             <% } %> <br>
    
+<<<<<<< Updated upstream
             <table id="usersTbl" class="table">
                 <thead class="">
                     <tr>
@@ -82,6 +89,36 @@
                     <% }); %>
                 </tbody>
             </table>
+=======
+            <div class="container mt-4">
+              <table class="table table-bordered table-hover">
+                  <thead >
+                      <tr>
+                          <th>Name</th>
+                          <th>Username</th>
+                          <th>Contact Number</th>
+                          <th>Address</th>
+                      
+                          <th>Email</th>
+                          <th>Usertype</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <% result.forEach(users => { %>
+                          <tr>
+                              <td><%= users.firstname %> <%= users.lastname %></td>
+                              <td><%= users.username %></td>
+                              <td><%= users.contact_no %></td>
+                              <td><%= users.address %></td>
+                              <td><%= users.email %></td>
+                              <td><%= users.usertype %></td>
+                          </tr>
+                      <% }); %>
+                  </tbody>
+              </table>
+          </div>
+          
+>>>>>>> Stashed changes
         </div>
     </div>
 </div>
@@ -114,84 +151,105 @@
           <div class="modal-content">
             <!-- Header -->
             <div class="modal-header bg-info text-white">
-                <h4 class="modal-title">Add room</h4>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
+                <h4 class="modal-title">Register</h4>
+              
+
+                  <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+              
+              
             </div>
   
             <!-- Body -->
             <div class="modal-body">
               <form action="/register-admin" method="post">
-                <h2>REGISTER</h2>
+                
                 <% if (error && error.length > 0) { %>
                   <div class="alert alert-danger" style="background-color: white; color: black; margin: 1rem;">
                     <p style="vertical-align: middle; padding: 1rem; font-size: large;"><%= error[0] %></p>
                   </div>
                 <% } %>
                 <center><img class="logo" src="/imgs/cdk.png" alt="Logo" style="border-radius:65px; height:100px; width:100px"></center>
-                
-                <div class="input-fields">
-                  <div class="input-field">
-                    <input type="text" id="first_name" name="firstname" required>
-                    <label for="first_name">First Name</label>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="first_name">First Name</label>
+                      <input type="text" class="form-control" id="first_name" name="firstname" required>
+                    </div>
                   </div>
-          
-                  <div class="input-field">
-                    <input type="text" id="last_name" name="lastname" required>
-                    <label for="last_name">Last Name</label>
+            
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="last_name">Last Name</label>
+                      <input type="text" class="form-control" id="last_name" name="lastname" required>
+                    </div>
                   </div>
-                  
-                  <div class="input-field">
-                    <label for="birthday" style="position: absolute; top: 1px; left: 0;">Birthday</label>
-                    <input type="date" id="birthday" name="birthday" required placeholder="Select your birthday">
+            
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="birthday">Birthday</label>
+                      <input type="date" class="form-control" id="birthday" name="birthday" required>
+                    </div>
                   </div>
-          
-                  <div class="input-field">
-                    <div class="custom-dropdown">
-                      <select id="gender" name="gender" required>
+            
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="gender">Gender</label>
+                      <select class="form-control" id="gender" name="gender" required>
                         <option value="" disabled selected>Select Gender</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
-                      </select> 
+                      </select>
                     </div>
-                  </div> 
-          
-                  <div class="input-field">
-                    <input type="text" id="address" name="address" required>
-                    <label for="address">Address</label>
-                  </div> 
-          
-                  <div class="input-field">
-                    <input type="tel" id="contact_no" name="contact_no" required>
-                    <label for="contact_no">Contact Number</label>
                   </div>
-          
-                  <div class="input-field">
-                    <input type="text" id="username" name="username" required>
-                    <label for="username">Username</label>
-                  </div> 
-          
-                  <div class="input-field">
-                    <input type="email" id="email" name="email" required>
-                    <label for="email">Email</label>
+            
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="address">Address</label>
+                      <input type="text" class="form-control" id="address" name="address" required>
+                    </div>
                   </div>
-           
-                </div> 
-          
-                <div class="input-fields">
-                  <div class="input-field">
-                    <input type="password" id="password" name="password" required>
-                    <label for="password">Password</label>
+            
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="contact_no">Contact Number</label>
+                      <input type="tel" class="form-control" id="contact_no" name="contact_no" required>
+                    </div>
                   </div>
-          
-                  <div class="input-field">
-                    <input type="password" id="password" name="confirmPassword" required>
-                    <label for="confirmPassword">Password</label>
+            
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="username">Username</label>
+                      <input type="text" class="form-control" id="username" name="username" required>
+                    </div>
                   </div>
+            
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="email">Email</label>
+                      <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                  </div>
+            
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="password">Password</label>
+                      <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                  </div>
+            
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="confirmPassword">Confirm Password</label>
+                      <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                    </div>
+                  </div>
+            
                 </div>
                 
-                <button type="submit">Register</button><br>
+                <button type="submit" class="btn btn-primary">Register</button><br>
+
           
    
               </form>

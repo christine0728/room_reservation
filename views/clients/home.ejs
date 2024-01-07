@@ -48,7 +48,8 @@
                 <% rooms.forEach(room => { %>
                 <div class="col-4">
                     <div class="card">
-                        <img src="/imgs/rooms.jpg" class="card-img-top" alt="...">
+                        <img src="<%= room.image ? '/imgs/' + room.image : '/imgs/home.jpg' %>" class="card-img-top" alt="...">
+
                         <div class="card-body">
                             <h4 class="card-title" style="margin-bottom: 1.5rem; font-weight: bold;"><%= room.room_id %> <%= room.room_type %></h4>
                             <p class="card-title" style="margin-bottom: 1.5rem;">

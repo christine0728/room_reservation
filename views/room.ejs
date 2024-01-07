@@ -124,6 +124,7 @@
                         <th>Amenities</th>
                         <th>Price</th>
                         <th>Area sqm</th>
+                        <th>Image</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -137,9 +138,14 @@
                             <td><%= room.amenities %></td>
                             <td><%= room.price_per_hour %></td>
                             <td><%= room.area_sqm %></td>
+                            <td>
+                              <img src="/imgs/<%= room.image %>" alt="Room Image" style="max-width: 100px; max-height: 100px;">
+                            </td>
+                            
+                            
                             <td>       
                                 <a href="#" class="btn-edit" data-id="<%= room.id %>" 
-                                    onclick="populateEditModal('<%= room.room_id %>', '<%= room.room_type %>', '<%= room.room_floor %>', '<%= room.capacity %>', '<%= room.amenities %>', '<%= room.price_per_hour %>', '<%= room.area_sqm %>')"
+                                    onclick="populateEditModal('<%= room.room_id %>', '<%= room.room_type %>', '<%= room.room_floor %>', '<%= room.capacity %>', '<%= room.amenities %>', '<%= room.price_per_hour %>', '<%= room.area_sqm %>' ,'<%= room.image %>')"
                                     data-bs-toggle="modal" data-bs-target="#modalEdit">
                                      <button type="button" class="btn btn-success rounded">
                                          <i style="color: white; font-size: 12px;" class="fa fa-edit"></i>
@@ -252,7 +258,8 @@
                 </div>
                 <div class="form-group">
                   <label class="req-label">Image</label>
-                  <input type="file" id="image" name="image" class="form-control" placeholder="Enter room amenities" autocomplete="off">
+                  <input type="file" id="image" name="image" class="form-control" placeholder="Enter room amenities" autocomplete="off" onchange="previewImage()" accept="image/*">
+                  <div id="imagePreview" class="mt-2"></div>
                 </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
@@ -309,8 +316,9 @@
                   </div>
                   <div class="form-group">
                     <label class="req-label">Square meter</label>
-                    <input type="text" id="edit_area_sqm" name="	area_sqm" class="form-control" placeholder="Enter room amenities" autocomplete="off">
+                    <input type="text" id="edit_area_sqm" name="areasqm" class="form-control" placeholder="Enter room amenities" autocomplete="off">
                   </div>
+                  
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
                         <button type="submit" class="btn btn-primary">Save</button>
@@ -333,9 +341,26 @@
           window.location.href = "/delete-room/" + roomId;
       }
   }
+  function previewImage() {
+  const input = document.getElementById('image');
+  const preview = document.getElementById('imagePreview');
+
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+      preview.innerHTML = `<img src="${e.target.result}" alt="Preview" style="max-width: 100%; max-height: 200px;">`;
+    };
+
+    reader.readAsDataURL(input.files[0]);
+  } else {
+    preview.innerHTML = '';
+  }
+}
   </script>
 
 <script>
+<<<<<<< Updated upstream
     function populateEditModal(roomId, numType, roomFloor, capacity, amenities, price, area_sqm) {
       // Set the values in the modal input fields
 
@@ -361,4 +386,20 @@ checkList.getElementsByClassName('anchor')[0].onclick = function(evt) {
   else
     checkList.classList.add('visible');
 }
+=======
+    function populateEditModal(roomId, numType, roomFloor, capacity, amenities, price, area_sqm, image) {
+        // Set the values in the modal input fields
+ 
+        document.getElementById('edit_room_id').value = roomId;
+        document.getElementById('edit_room_type').value = numType;
+        document.getElementById('edit_room_floor').value = roomFloor;
+        document.getElementById('edit_capacity').value = capacity;
+        document.getElementById('edit_amenities').value = amenities;
+        document.getElementById('edit_price').value = price;
+        document.getElementById('edit_area_sqm').value = area_sqm;
+        // You can also set additional data attributes or hidden inputs if needed
+        document.getElementById('edit_room_id').value = roomId;
+        document.getElementById('edit_image').value = roomId;
+    }
+>>>>>>> Stashed changes
 </script>
