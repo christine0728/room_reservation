@@ -285,14 +285,22 @@ exports.getReservation = (req, res) => {
 };
 
 exports.loginUser = (req, res)=>{
-  console.log('f');
+
   const { email, password } = req.body;
   const userSql = "SELECT * FROM users WHERE email= ?";
   const postsSql = "SELECT * FROM rooms"; 
+  const getRoomsCountQuery = "SELECT COUNT(*) AS roomCount FROM rooms";
+  
+  // Query to get the count of users
+  const getUsersCountQuery = "SELECT COUNT(*) AS userCount FROM users";
+  
+  // Query to get the count of reservations
+  const getReservationsCountQuery = "SELECT COUNT(*) AS reservationCount FROM reservations";
   if (!email || !password) { 
     return res.render('login', { alertMessage: 'email and password are required.' });
   } 
   let alert = ""; 
+  
   con.query(userSql, [email], async (err, userResult) => {
     if (err) {
       console.log(err.message);
@@ -309,8 +317,8 @@ exports.loginUser = (req, res)=>{
           console.log('Session user:', userResult[0]);
           req.session.user = userResult[0]; 
           if (userResult[0].usertype === 'admin') {
-          
-            res.render("dashboard", { user: userResult[0] });
+            return res.redirect(`/admin/dashboard`);
+         
           }
           if (userResult[0].usertype === 'client') {
             let client_id = userResult[0].id;
