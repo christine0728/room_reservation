@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PSU Library</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="/css/fontawesome.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="/css/icheck-bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/css/adminlte.min.css">
+    <!-- Add Bootstrap JS library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+
+    <%- include('partials/adminheader') %>
+
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <a href="/" class="brand-link">
+          
+            <span class="brand-text font-weight-light"> &nbsp;&nbsp;  &nbsp;&nbsp; &nbsp;&nbsp;  &nbsp;&nbsp;Casa De Kwarto</span>
+        </a>
+
+     <!-- Sidebar -->
+<div class="sidebar">
+    <!-- Sidebar user panel (optional) -->
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex ">
+        <div class="info">
+            <a href="/profile" class="d-block">
+               
+                &nbsp;&nbsp;Admin
+         </a>
+        </div>
+    </div>
+
+    <%- include('partials/nav') %>
+
+  </div>
+
+ </aside>
+
+ <div class="content-wrapper d-flex justify-content-center align-items-start">
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        
+
+                        
+                        <div class="row col-12" style="padding: 1rem">
+                            <div class="col-4" style="padding: 1rem 1rem 0.5rem 1rem">
+                                <div class="card" style="margin: 0.5rem;">
+                                    <div class="card-body">
+                                      <b class="card-title">USERS</b>
+                                      <p class="card-text" style="font-size: xx-large;"> <%= userCount %></p>
+                                      <a href="/users" class="card-link">View more</a>
+                                      
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4" style="padding: 1rem 1rem 0.5rem 1rem">
+                                <div class="card" style="margin: 0.5rem;">
+                                    <div class="card-body">
+                                      <b class="card-title">Rooms</b>
+                                      <p class="card-text" style="font-size: xx-large;"> <%= roomCount %></p>
+                                      <a href="/room" class="card-link">View more</a>
+                                      
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4" style="padding: 1rem 1rem 0.5rem 1rem">
+                                <div class="card" style="margin: 0.5rem;">
+                                    <div class="card-body">
+                                      <b class="card-title">Reservations</b>
+                                      <p class="card-text" style="font-size: xx-large;"><%= reservationCount %></p>
+                                      <a href="/admin/reservations" class="card-link">View more</a>
+                                      
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12" style="padding: 1rem 1rem 0.5rem 1rem">
+                                <div class="card" style="margin: 0.5rem;">
+                                    <div class="card-body">
+                                      <b class="card-title">Degree Program</b>
+                                      <p class="card-text" style="font-size: xx-large;">1</p>
+                                      <a href="http://local.sia/admin/books_per_program" class="card-link">View more</a>
+                                      
+                                    </div>
+                                </div>
+                            </div>
+                            
+                                      
+                                      
+                                    
+                            
+                                      
+                                      
+                                    
+                            
+                                      
+                                    
+                            <div class="col-6" style="padding: 1rem 1rem 0.5rem 1rem">
+                                <div class="card" style="margin: 0.5rem;">
+                                    <div class="card-body">
+                                      <b class="card-title">Subscribed Educational Databases</b>
+                                      <p class="card-text" style="font-size: xx-large;">1</p>
+                                      <a href="#" class="card-link">View more</a>
+                                      
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6" style="padding: 1rem 1rem 0.5rem 1rem">
+                                <div class="card" style="margin: 0.5rem;">
+                                    <div class="card-body">
+                                      <b class="card-title">Open Educational Resources</b>
+                                      <p class="card-text" style="font-size: xx-large;">1</p>
+                                      <a href="#" class="card-link">View more</a>
+                                      
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+</div>
+
+    
+
+
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+        <div class="p-3">
+            <h5>Title</h5>
+            <p>Sidebar content</p>
+        </div>
+    </aside>
+
+    <%- include('partials/footer') %>
+</div>
+
+<script src="/js/adminlte.min.js" defer></script>
+
+</body>
+</html>

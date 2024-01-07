@@ -13,6 +13,8 @@
     <!-- Add Bootstrap JS library -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -22,8 +24,10 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="/" class="brand-link">
+            <a href="/" class="brand-link">
           
-            <span class="brand-text font-weight-light">Room reservation</span>
+                <span class="brand-text font-weight-light"> &nbsp;&nbsp;  &nbsp;&nbsp; &nbsp;&nbsp;  &nbsp;&nbsp;Casa De Kwarto</span>
+            </a>
         </a>
 
      <!-- Sidebar -->
@@ -32,8 +36,9 @@
     <div class="user-panel mt-3 pb-3 mb-3 d-flex ">
         <div class="info">
             <a href="/profile" class="d-block">
-                   &nbsp;&nbsp;admin username
-            </a>
+                
+                &nbsp;&nbsp;Admin
+         </a>
         </div>
     </div>
 
@@ -53,14 +58,14 @@
                 <div class="alert alert-info"><%= alert %></div>
             <% } %> <br>
     
-            <table class="table">
-                <thead class="thead-dark">
+            <table id="example" class="display resposive nowrap mt-5 table-responsive-sm" style="width:100%;">
+                <thead class="">
                     <tr>
                         <th>Username</th>
                         <th>Room Number</th>
-                        <th>Price</th>
+                        <th>Price per hour</th>
                         <th>Date Start</th>
-                      
+                        <th>Paid</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -69,14 +74,18 @@
                     <% result.forEach(reservation => { %>
                         <tr>
                             <td><%= reservation.username %></td>
-                            <td><%= reservation.room_number %></td>
-                            <td><%= reservation.price %></td>
+                            <td><%= reservation.room_type %></td>
+                            <td><%= reservation.price_per_hour %></td>
                             <% function formatDate(dateString) {
                                 const options = { year: 'numeric', month: 'long', day: '2-digit' };
                                 const formattedDate = new Date(dateString).toLocaleDateString('en-US', options);
                                 return formattedDate;
                             } %>
                             <td><%= formatDate(reservation.start_date) %></td>
+                            <td>
+                                <%= reservation.paid === 0 ? 'Not Paid' : 'Paid' %>
+                              </td>
+                              
                             <td>
                                 <% if (reservation.status === 'pending') { %>
                                     <span class="text-warning">
@@ -100,9 +109,16 @@
                                     <i style="color: white; font-size: 12px;" class="fa fa-edit"></i>
                                 </a>
 
-                                <a href="#"  class="btn btn-primary rounded"  data-bs-toggle="modal" data-bs-target="#modalAdd">
-                                    <i style="color: white; font-size: 12px;" class="fa fa-eye"></i>
+                                <a href="#" onclick="confirmPaid('<%= reservation.reservation_id %>');" class="btn btn-danger rounded">
+                                    <i style="color: white; font-size: 12px;" class="fas fa-dollar-sign"></i>
+
                                 </a>
+                                <a href="#" class="btn-edit"  onclick="populateEditModal('<%= reservation.room_id %>', '<%= reservation.room_type %>', '<%= reservation.room_floor %>', '<%= reservation.capacity %>', '<%= reservation.amenities %>', '<%= reservation.price_per_hour %>', '<%= reservation.area_sqm %>', '<%= reservation.paid_date %>')" data-bs-toggle="modal" data-bs-target="#modalEdit">
+                                     <button type="button" class="btn btn-primary rounded">
+                                         <i style="color: white; font-size: 12px;" class="fa fa-eye"></i>
+                                     </button>
+                                 </a>
+                                 
                             </td>
                         </tr>
                     <% }); %>
@@ -173,14 +189,114 @@
     </div>
   </div>
   
-    
+
+
+  <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-right modal-dialog-bottom modal-dialog-notify modal-dialog-info" role="document">
+        <!-- Content -->
+          <div class="modal-content">
+            <!-- Header -->
+            <div class="modal-header bg-info text-white">
+                <h4 class="modal-title">Update status</h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+  
+            <!-- Body -->
+            <div class="modal-body">
+         
+            
+                <form action="/update-reservation" method="post" >
+                    <div class="form-group">
+                        <label class="req-label">Status</label>
+                        <select id="status" name="status" class="form-control">
+                            <option value="accepted">Accepted</option>
+                            <option value="rejected">Rejected</option>
+                        </select>
+                    </div>
+                      
+                    <input type="hidden" id="reservation_id" name="reservation_id" value="">
+
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+  </div>
+  
+<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-right modal-dialog-bottom modal-dialog-notify modal-dialog-info" role="document">
+        <!-- Content -->
+          <div class="modal-content">
+            <!-- Header -->
+            <div class="modal-header bg-info text-white">
+                <h4 class="modal-title">Details</h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+  
+            <!-- Body -->
+            <div class="modal-body">
+                <form action="/update-room" method="post" >
+                    <input type="hidden" id="edit_room_id" name="room_id" value="">
+
+                    <div class="form-group">
+                        <label class="req-label">Room type</label>
+                        <span id="edit_room_type" name="room_type"  ></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="req-label">Room Floor</label>
+                        <span id="edit_room_floor" name="room_floor" ></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="req-label">Capacity</label>
+                        <span id="edit_capacity" name="capacity" ></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="req-label">Amenities</label>
+                        <span id="edit_amenities" name="amenities" ></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="req-label">Price</label>
+                        <span id="edit_price" name="price" ></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="req-label">Square meter</label>
+                        <span id="edit_area_sqm" name="area_sqm"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="req-label">Square meter</label>
+                        <span id="edit_paid" name="area_sqm"></span>
+                    </div>
+                    
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+  </div>
 
 <script>
-  function confirmAndRedirect(roomId) {
-      var confirmation = confirm('Are you sure you want to delete this room?');
+  function confirmPaid(roomId) {
+      var confirmation = confirm('Update payment');
       
       if (confirmation) {
-          window.location.href = "/delete-room/" + roomId;
+          window.location.href = "/update-payment/" + roomId;
       }
   }
 
@@ -192,6 +308,30 @@
         // Set the value of the hidden input in the modal form
         $(this).find('#reservation_id').val(reservationId);
     });
+  
+  function confirmPayment(roomId) {
+      var confirmation = confirm('Are you sure you want to delete this room?');
+      
+      if (confirmation) {
+          window.location.href = "/delete-room/" + roomId;
+      }
+  }
+
 
 
   </script>
+
+<script>
+    function populateEditModal(roomId, numType, roomFloor, capacity, amenities, price, area_sqm, paid) {
+        // Set the values in the modal input fields
+        document.getElementById('edit_room_id').textContent = roomId;
+document.getElementById('edit_room_type').textContent = numType;
+document.getElementById('edit_room_floor').textContent = roomFloor;
+document.getElementById('edit_capacity').textContent = capacity;
+document.getElementById('edit_amenities').textContent = amenities;
+document.getElementById('edit_price').textContent = price;
+document.getElementById('edit_area_sqm').textContent = area_sqm;
+document.getElementById('edit_paid').textContent = paid;
+
+    }
+</script>

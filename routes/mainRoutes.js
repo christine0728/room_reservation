@@ -24,6 +24,9 @@ router.get("/home",mainCon.getIndex);
 router.get("/index",islogin , (req, res) => {
   res.redirect("/");
 });
+router.get("/admin/dashboard",mainCon.getdashboard);
+
+
 
 router.post("/login-user",  mainCon.loginUser);
 router.get("/login", (req, res) => {
@@ -32,6 +35,7 @@ router.get("/login", (req, res) => {
 });
 
 router.post("/register-user", mainCon.registerUser);
+router.post("/register-admin", mainCon.registerAdmin);
 router.get('/register', (req, res) => { 
   const success = req.flash('success') || [];
   const error = req.flash('success') || []; 
@@ -70,14 +74,18 @@ router.get("/users", mainCon.getUser);
 router.get("/add-post", mainCon.addPost);
 
 //reservations
-router.get("/reservations", mainCon.getReservation);
+router.get("/admin/reservations", mainCon.getReservation);
 router.post("/update-reservation", mainCon.updateStatus);
-  
+router.get("/update-payment/:id", mainCon.updatePayment);
+
 router.get("/logout", (req, res) => {
   req.session.destroy();
   res.redirect('/');
 });
-
+//amenities
+router.get("/amenities",mainCon.getAmenities);
+router.post("/insert-amenities", mainCon.postAmenities);
+router.post("/update-amenities", mainCon.updateAmenities);
 
 
 module.exports = router;

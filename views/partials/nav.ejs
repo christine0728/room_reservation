@@ -3,21 +3,14 @@
         data-accordion="false">
         <!-- Replace dynamic routes with static URLs -->
         <li class="nav-item">
-            <a href="/home" class="nav-link">
+            <a href="/admin/dashboard" class="nav-link">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
                     Dashboard
                 </p>
             </a>
         </li>
-        <li class="nav-item">
-            <a href="/room" class="nav-link">
-                <i class="nav-icon fas fa-th"></i>
-                <p>
-                    Room
-                </p>
-            </a>
-        </li>
+
         <li class="nav-item">
             <a href="/users" class="nav-link">
                 <i class="nav-icon fas fa-th"></i>
@@ -27,7 +20,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="/reservations" class="nav-link">
+            <a href="/admin/reservations" class="nav-link">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
                    Reservation
@@ -38,62 +31,26 @@
             <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-cogs"></i> <!-- Updated icon for Administration -->
                 <p>
-                    Services and utilization
+                  Rooms
                     <i class="fas fa-angle-left right"></i>
                 </p>
             </a>
 
             <ul class="nav nav-treeview" style="display: none;">
                 <li class="nav-item">
-                    <a href="{{ route('service_new_normal') }}" class="nav-link">
-                        <p>Library service in the new normal</p>
+                    <a href="/room" class="nav-link">
+                        <p>Rooms</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('rules_regulations') }}" class="nav-link">
-                        <p>Library rules and regulations</p>
+                    <a href="/amenities" class="nav-link">
+                        <p>Amenities</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ route('service_new_normal') }}" class="nav-link">
-                        <p>Library services</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('libraryhour') }}" class="nav-link">
-                        <p>Library Hour</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('service_new_normal') }}" class="nav-link">
-                        <p>Policy in borrowing books</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('service_new_normal') }}" class="nav-link">
-                        <p>Signing of clearance</p>
-                    </a>
-                </li>
+               
             </ul>
         </li>
-        <li class="nav-item">
-            <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-cogs"></i>
-                <p>
-                    Admin
-                    <i class="fas fa-angle-left right"></i>
-                </p>
-            </a>
-            <!-- Add your static URLs for sub-items -->
-            <ul class="nav nav-treeview" style="display: none;">
-                <li class="nav-item">
-                    <a href="/universityofficial" class="nav-link">
-                        <p>University Official</p>
-                    </a>
-                </li>
-            </ul>
-            <!-- Repeat the structure for other sub-items -->
-        </li>
+     
 
         <!-- Repeat the structure for other main menu items -->
     </ul>
