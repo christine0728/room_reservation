@@ -1,124 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-        <%- include('../partials/scripts.ejs') %>
-        <link rel="stylesheet" href="/css/home.css?version=4" />
-        <script src="https://kit.fontawesome.com/7528702e77.js" crossorigin="anonymous"></script>
-        <script src="/js/home.js" defer></script>
-        <title>Home</title>
-    </head>
-    <body style="background-color: white;">
-        <%- include('../partials/cl_loggedin_nav.ejs') %>
-        <div style="margin-top: 2rem; padding: 5rem 12rem 2rem 12rem">
-            <div class="row" style="margin: 2rem 2rem 2rem 0rem;">
-                <div class="col-12" style="margin-bottom: 1rem;">
-                    <h1><b>Reservation</b></h1>
-                    <% if(roomsavail == "can") {%>
-                    <p style="font-size: large; margin-top: 1rem;">No current reservation yet.</p>
-                    <div class="col-12">
-                        <a href="#select" class="button" style="float: left; margin: 0rem;">Avail a Room</a>
-                    </div>
-                    <% } else { %>
-                        <p style="font-size: large; margin-top: 1rem;">Already resered a room. Wait for the update.</p>
-                    <% } %>
-                </div>
-                <div class="col-12">
-                    <hr>                    
-                </div>
-
-                <div class="col-12" id="select" style="overflow-x:auto; margin-top: 2rem;">
-                    <h1><b>Rooms</b></h1>
-                    <p style="font-size: large; margin-top: 1rem; margin-bottom: 2rem;">Avail rooms below.</p>
-                    <!-- <table id="roomsTbl" class="display">
-                        <thead>
-                            <tr>
-                                <th>Room name</th>
-                                <th>Capacity</th>
-                                <th>Amenities</th>
-                                <th>Price</th>
-                                <th>Area</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <% rooms.forEach(room => { %>
-                        <tr>
-                            <td><%= room.room_id %> <%= room.room_type %></td>
-                            <td><%= room.capacity %> people</td>
-                            <td><%= room.amenities %></td>
-                            <td><%= room.price_per_hour %> pesos</td>
-                            <td><%= room.area %></td>
-                            <td> 
-                                <% if(roomsavail == "can") {%> 
-                                    <a href="/avail_room/<%= client_id %>/<%= room.room_id %>" class="button">Avail Room</a>
-                                <% } if(roomsavail == "cannot") {%>
-                                    Cannot avail a room yet. Wait for the update of your latest reservation.
-                                <% } %>
-                            </td>
-                        </tr>
-                        <% }); %>
-                        </tbody>
-                    </table> -->
-                    <% rooms.forEach(room => { %>
-                    <div class="col-4">
-                        <div class="card" style="width: 18rem;">
-                            <img src="/imgs/rooms.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h4 class="card-title" style="margin-bottom: 1.5rem; font-weight: bold;"><%= room.room_id %> <%= room.room_type %></h4>
-                                <p class="card-title" style="margin-bottom: 1.5rem;">
-                                    <span style="background-color: #FFEA6D; padding: 0.4rem; border-radius: 0.5rem; font-weight: bold;  margin-right: 0.5rem;">
-                                        <i class="fa-solid fa-peso-sign" style="font-size: 1rem; margin-right: 0.2rem;"></i> 
-                                        <%= room.price_per_hour %>.00
-                                    </span> 
-                                    <span style="background-color: #FFEA6D; padding: 0.4rem; border-radius: 0.5rem; font-weight: bold; ">
-                                        <i class="fa-solid fa-person" style="font-size: 1rem; margin-right: 0.2rem;"></i> <%= room.capacity %>
-                                    </span>
-                                </p>
-
-                                <p class="card-title" style="margin-bottom: 1.5rem;">
-                                    <span style="background-color: #FFEA6D; padding: 0.4rem; border-radius: 0.5rem; font-weight: bold;  margin-right: 0.5rem;">
-                                        <i class="fa-solid fa-building" style="font-size: 1rem; margin-right: 0.2rem;"></i> 
-                                        <%= room.room_floor %> floor
-                                    </span>  
-
-                                    <span style="background-color: #FFEA6D; padding: 0.4rem; border-radius: 0.5rem; font-weight: bold;  margin-right: 0.5rem;">
-                                        <i class="fa-solid fa-ruler" style="font-size: 1rem; margin-right: 0.5rem;"></i>
-                                        <%= room.area_sqm %> sq m
-                                    </span>
-                                </p> 
-                                <p class="card-text">
-                                    <span style="background-color: #FFEA6D; padding: 0.4rem; border-radius: 0.5rem; font-weight: bold;  margin-right: 0.5rem;">
-                                    <i class="fa-solid fa-suitcase" style="font-size: 1rem; margin-right: 0.5rem;"></i>
-                                        <%= room.amenities %>
-                                    </span>
-                                </p>
-                                <% if(roomsavail == "can") {%> 
-                                    <a href="/avail_room/<%= client_id %>/<%= room.room_id %>" class="button" style="float: left;">Avail Room</a>
-                                <% } if(roomsavail == "cannot") {%>
-                                    <p>Cannot avail a room yet. Wait for the update of your latest reservation.</p>
-                                <% } %>
-                            </div>
-                        </div>
-                    </div>
-                    <% }); %>
-                </div>
-            </div>
-            
-            
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <%- include('../partials/scripts.ejs') %>
+    <link rel="stylesheet" href="/css/home.css?version=4" />
+    <script src="https://kit.fontawesome.com/7528702e77.js" crossorigin="anonymous"></script>
+    <script src="/js/home.js" defer></script>
+    <title>Home</title>
+</head>
+<body style="background-color: white;">
+<%- include('../partials/cl_loggedin_nav.ejs') %>
+<div style="margin-top: 2rem; padding: 5rem 12rem 2rem 12rem">
+    <div class="row" style="margin: 2rem 2rem 2rem 0rem;">
+        <div class="col-12" style="margin-bottom: 1rem;">
+            <h1><b>Reservation</b></h1> 
+        </div>
+        <div class="col-12">
+            <hr>                    
         </div>
 
-        <hr>
-        
+        <div class="col-12" id="select" style="overflow-x:auto; margin-top: 2rem;">
+            <h1><b>Rooms</b></h1>
+            <p style="font-size: large; margin-top: 1rem; margin-bottom: 2rem;">Avail rooms below.</p>
+            <div class="col-12" style="margin-bottom: 2rem; vertical-align: middle; ">
+                <p style="font-size: large;">
+                    <form action="/filter/<%= client_id %>" method="post">
+                        <div style="display: flex;">
+                            <input type="hidden" name="client_id" value="<%= client_id %>">
+                            <label for="datetime" style="margin-right: 1rem; margin-top: 0.5rem; font-size: large;"><b>Check rooms available from:</b></label> 
+                            <input class="form-control" type="date" id="datetime-date" name="from_date" min="2024-01-01" style="width: 17%;">  
+                            
+                            <label for="datetime" style="margin-left: 1rem; margin-right: 1rem; margin-top: 0.5rem;"><b>to:</b> </label> 
+                            <input class="form-control" type="date" id="datetime-date" name="to_date" min="2024-01-01" style="width: 17%;">      
+                            
+                            <input type="submit" name="filter" value="Filter date" style="background: #e0a80f; color: #000; font-weight: 600; border: none; padding: 0rem 1rem 0rem 1rem; cursor: pointer; border-radius: 3px; font-size: large;
+                            border: 2px solid transparent; transition: 0.3s ease; margin-left: 1rem; ">
+                        </div>  
+                    </form>
+                    
+                </p>
+            </div>  
+            <div class="row">
+                <% rooms.forEach(room => { %>
+                <div class="col-4">
+                    <div class="card">
+                        <img src="/imgs/rooms.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h4 class="card-title" style="margin-bottom: 1.5rem; font-weight: bold;"><%= room.room_id %> <%= room.room_type %></h4>
+                            <p class="card-title" style="margin-bottom: 1.5rem;">
+                                <span style="background-color: #FFEA6D; padding: 0.4rem; border-radius: 0.5rem; font-weight: bold;  margin-right: 0.5rem;">
+                                    <i class="fa-solid fa-peso-sign" style="font-size: 1rem; margin-right: 0.2rem;"></i> 
+                                    <%= room.price_per_hour %>.00
+                                </span> 
+                                <span style="background-color: #FFEA6D; padding: 0.4rem; border-radius: 0.5rem; font-weight: bold; ">
+                                    <i class="fa-solid fa-person" style="font-size: 1rem; margin-right: 0.2rem;"></i> <%= room.capacity %>
+                                </span>
+                            </p>
 
-        <div class="footer">
-            <span class="copyright-symbol">Casa De Kwarto &copy; 2023. All Rights Reserved.</span>
-        </div> 
-    </body>
+                            <p class="card-title" style="margin-bottom: 1.5rem;">
+                                <span style="background-color: #FFEA6D; padding: 0.4rem; border-radius: 0.5rem; font-weight: bold;  margin-right: 0.5rem;">
+                                    <i class="fa-solid fa-building" style="font-size: 1rem; margin-right: 0.2rem;"></i> 
+                                    <%= room.room_floor %> floor
+                                </span>  
+
+                                <span style="background-color: #FFEA6D; padding: 0.4rem; border-radius: 0.5rem; font-weight: bold;  margin-right: 0.5rem;">
+                                    <i class="fa-solid fa-ruler" style="font-size: 1rem; margin-right: 0.5rem;"></i>
+                                    <%= room.area_sqm %> sq m
+                                </span>
+                            </p> 
+                            <p class="card-text">
+                                <span style="background-color: #FFEA6D; padding: 0.4rem; border-radius: 0.5rem; font-weight: bold;  margin-right: 0.5rem;">
+                                <i class="fa-solid fa-suitcase" style="font-size: 1rem; margin-right: 0.5rem;"></i>
+                                    <%= room.amenities %>
+                                </span>
+                            </p>
+                            <a href="/avail_room/<%= client_id %>/<%= room.room_id %>" class="button" style="float: left;">Avail Room</a>
+                        </div>
+                    </div>
+                </div>
+                <% }); %>
+            </div>
+        </div>
+            
+    </div>
+    
+    
+</div>
+
+<hr>
+
+
+<div class="footer">
+    <span class="copyright-symbol">Casa De Kwarto &copy; 2023. All Rights Reserved.</span>
+</div> 
+</body>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>

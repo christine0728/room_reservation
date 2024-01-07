@@ -47,7 +47,8 @@ router.get('/all_rooms', (req, res) => {
 });
 
 // client side
-router.get('/home/:client_id', islogin, mainCon.home);
+router.get('/home/:client_id', mainCon.home);
+router.post('/filter/:client_id', mainCon.filterAvails);
 router.get("/avail_room/:client_id/:room_id", mainCon.availRoom); 
 router.post("/add_reservation", mainCon.addReservation); 
 router.get("/view_reservations/:client_id", mainCon.viewReservations); 

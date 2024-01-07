@@ -190,8 +190,7 @@ exports.registerUser = async (req, res) => {
   });
 };
 
-exports.home = (req, res) => {
-  // res.json(req.body);
+exports.home = (req, res) => { 
   const client_id = req.params.client_id;
   let roomsavail = "can";
   const ifsql = "SELECT * FROM reservations WHERE user_id = ?";
@@ -203,7 +202,7 @@ exports.home = (req, res) => {
         roomsavail = "can";
       }
       else { 
-        console.log("di");
+        // console.log("di");
         roomsavail = "cannot";
       } 
     }); 
@@ -215,6 +214,30 @@ exports.home = (req, res) => {
   });
 }; 
 
+exports.filterAvails = (req, res) => {
+  const client_id = req.body.client_id;
+  const from_date = req.body.from_date;
+  const to_date = req.body.to_date;
+
+  const sql = `
+    SELECT rooms.*
+    FROM rooms
+    WHERE NOT EXISTS (
+      SELECT 1
+      FROM reservations
+      WHERE reservations.room_id = rooms.room_id
+      AND (reservations.start_date <= ? AND reservations.end_date >= ?)
+    );
+  `;
+
+  console.log(from_date);
+  console.log(to_date);
+  con.query(sql, [from_date, to_date], (err, availableRooms) => {  
+    // res.redirect(`home/${client_id}`);
+    res.render('clients/home', { client_id, rooms: availableRooms });
+  });
+  
+}
 exports.availRoom = (req, res) => {
   // res.json(req.body);
   const roomid = req.params.room_id;
