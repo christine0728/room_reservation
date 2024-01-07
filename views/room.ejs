@@ -205,13 +205,13 @@
               <form action="/insert-room" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                   <label class="req-label">Room type</label>
-                  <input type="text" id="room_type" name="room_type" class="form-control" placeholder="Enter room room number" autocomplete="off">
+                  <input type="text" id="room_type" name="room_type" class="form-control" placeholder="Enter room type" autocomplete="off">
                 </div>
                 
                
                 <div class="form-group">
                   <label class="req-label">Room floor</label>
-                  <select name="room" class="form-control">
+                  <select name="room_floor" class="form-control">
                     <option>Select floor:</option> 
                       <option value="1st"><b>1st floor</b></option>  
                       <option value="2nd"><b>2nd floor</b></option>  
@@ -238,7 +238,7 @@
                   </select> -->
 
                   <div id="list1" class="dropdown-check-list" tabindex="100">
-                    <span class="anchor">Select Fruits</span>
+                    <span class="anchor">Select amenities:</span>
                     <ul class="items">
                       <% result1.forEach(res => { %>
                         <li><input type="checkbox" value="<%= res.name %>"/>&nbsp;<%= res.name %> </li>
@@ -254,7 +254,7 @@
                 </div>
                 <div class="form-group">
                   <label class="req-label">Square meter</label>
-                  <input type="text" id="area_sqm" name="area_sqm" class="form-control" placeholder="Enter room amenities" autocomplete="off">
+                  <input type="text" id="area_sqm" name="area_sqm" class="form-control" placeholder="Enter area of the room (square meter)" autocomplete="off">
                 </div>
                 <div class="form-group">
                   <label class="req-label">Image</label>
@@ -359,22 +359,7 @@
 }
   </script>
 
-<script>
-<<<<<<< Updated upstream
-    function populateEditModal(roomId, numType, roomFloor, capacity, amenities, price, area_sqm) {
-      // Set the values in the modal input fields
-
-      document.getElementById('edit_room_id').value = roomId;
-      document.getElementById('edit_room_type').value = numType;
-      document.getElementById('edit_room_floor').value = roomFloor;
-      document.getElementById('edit_capacity').value = capacity;
-      document.getElementById('edit_amenities').value = amenities;
-      document.getElementById('edit_price').value = price;
-      document.getElementById('edit_area_sqm').value = area_sqm;
-      // You can also set additional data attributes or hidden inputs if needed
-      document.getElementById('edit_room_id').value = roomId;
-  }
-
+<script> 
   $(document).ready(function() {
     $('#roomsTbl').DataTable();
   });
@@ -386,7 +371,6 @@ checkList.getElementsByClassName('anchor')[0].onclick = function(evt) {
   else
     checkList.classList.add('visible');
 }
-=======
     function populateEditModal(roomId, numType, roomFloor, capacity, amenities, price, area_sqm, image) {
         // Set the values in the modal input fields
  
@@ -401,5 +385,4 @@ checkList.getElementsByClassName('anchor')[0].onclick = function(evt) {
         document.getElementById('edit_room_id').value = roomId;
         document.getElementById('edit_image').value = roomId;
     }
->>>>>>> Stashed changes
 </script>

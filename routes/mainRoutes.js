@@ -52,9 +52,7 @@ router.get('/about_us', (req, res) => {
   res.render('mains/about_us');
 });
 
-router.get('/all_rooms', (req, res) => {  
-  res.render('mains/all_rooms');
-});
+router.get('/all_rooms', mainCon.getmainRooms);
 
 // client side
 router.get('/home/:client_id', mainCon.home);

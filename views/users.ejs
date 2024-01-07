@@ -52,19 +52,12 @@
     <div class="row justify-content-center align-items-start">
         <div class="col-12">
             <h1>User List</h1>
-<<<<<<< Updated upstream
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAdd" style="margin-bottom: 2rem;">+ register</button>
 
-=======
-            <a href="/registeradmin">
-            <button type="button" class="btn btn-primary" >+ register</button>
-</a>
->>>>>>> Stashed changes
             <% if (alert) { %>
                 <div class="alert alert-info"><%= alert %></div>
             <% } %> <br>
    
-<<<<<<< Updated upstream
             <table id="usersTbl" class="table">
                 <thead class="">
                     <tr>
@@ -83,42 +76,10 @@
                             <td><%= users.contact_no %></td>
                             <td><%= users.address %></td>
                             <td><%= users.email %></td>   
-                          
-                        
                         </tr>
                     <% }); %>
                 </tbody>
             </table>
-=======
-            <div class="container mt-4">
-              <table class="table table-bordered table-hover">
-                  <thead >
-                      <tr>
-                          <th>Name</th>
-                          <th>Username</th>
-                          <th>Contact Number</th>
-                          <th>Address</th>
-                      
-                          <th>Email</th>
-                          <th>Usertype</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      <% result.forEach(users => { %>
-                          <tr>
-                              <td><%= users.firstname %> <%= users.lastname %></td>
-                              <td><%= users.username %></td>
-                              <td><%= users.contact_no %></td>
-                              <td><%= users.address %></td>
-                              <td><%= users.email %></td>
-                              <td><%= users.usertype %></td>
-                          </tr>
-                      <% }); %>
-                  </tbody>
-              </table>
-          </div>
-          
->>>>>>> Stashed changes
         </div>
     </div>
 </div>
@@ -151,105 +112,84 @@
           <div class="modal-content">
             <!-- Header -->
             <div class="modal-header bg-info text-white">
-                <h4 class="modal-title">Register</h4>
-              
-
-                  <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-              
-              
+                <h4 class="modal-title">Add Admin</h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
             </div>
   
             <!-- Body -->
             <div class="modal-body">
-              <form action="/register-admin" method="post">
-                
+              <form action="/register-admin" method="post"> 
                 <% if (error && error.length > 0) { %>
                   <div class="alert alert-danger" style="background-color: white; color: black; margin: 1rem;">
                     <p style="vertical-align: middle; padding: 1rem; font-size: large;"><%= error[0] %></p>
                   </div>
                 <% } %>
-                <center><img class="logo" src="/imgs/cdk.png" alt="Logo" style="border-radius:65px; height:100px; width:100px"></center>
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="first_name">First Name</label>
-                      <input type="text" class="form-control" id="first_name" name="firstname" required>
-                    </div>
+                <!-- <center><img class="logo" src="/imgs/cdk.png" alt="Logo" style="border-radius:65px; height:100px; width:100px"></center> -->
+                
+                <div class="input-fields">
+                  <div class="input-field">
+                    <label for="first_name">First Name</label>
+                    <input type="text" id="first_name" class="form-control" name="firstname" required> 
                   </div>
-            
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="last_name">Last Name</label>
-                      <input type="text" class="form-control" id="last_name" name="lastname" required>
-                    </div>
+          
+                  <div class="input-field">
+                    <label for="last_name">Last Name</label>
+                    <input class="form-control" type="text" id="last_name" name="lastname" required> 
                   </div>
-            
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="birthday">Birthday</label>
-                      <input type="date" class="form-control" id="birthday" name="birthday" required>
-                    </div>
+                  
+                  <div class="input-field">
+                    <label for="birthday">Birthday</label>
+                    <input type="date" id="birthday" name="birthday" required placeholder="Select your birthday" class="form-control">
                   </div>
-            
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="gender">Gender</label>
-                      <select class="form-control" id="gender" name="gender" required>
+          
+                  <div class="input-field">
+                    <div class="custom-dropdown">
+                      <label for="birthday">Gender</label>
+                      <select id="gender" class="form-control" name="gender" required>
                         <option value="" disabled selected>Select Gender</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
-                      </select>
+                      </select> 
                     </div>
+                  </div> 
+          
+                  <div class="input-field">
+                    <label for="address">Address</label>
+                    <input type="text" id="address" name="address" class="form-control" required>
+                  </div> 
+          
+                  <div class="input-field">
+                    <label for="contact_no">Contact Number</label>
+                    <input type="tel" id="contact_no" class="form-control" name="contact_no" required>
                   </div>
-            
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="address">Address</label>
-                      <input type="text" class="form-control" id="address" name="address" required>
-                    </div>
+          
+                  <div class="input-field">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" class="form-control" name="username" required>
+                  </div> 
+          
+                  <div class="input-field">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" class="form-control" name="email" required>
                   </div>
-            
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="contact_no">Contact Number</label>
-                      <input type="tel" class="form-control" id="contact_no" name="contact_no" required>
-                    </div>
+           
+                </div> 
+          
+                <div class="input-fields">
+                  <div class="input-field">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
                   </div>
-            
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="username">Username</label>
-                      <input type="text" class="form-control" id="username" name="username" required>
-                    </div>
+          
+                  <div class="input-field">
+                    <label for="confirmPassword">Confirm password</label>
+                    <input type="password" id="password" class="form-control" name="confirmPassword" required>
                   </div>
-            
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="email">Email</label>
-                      <input type="email" class="form-control" id="email" name="email" required>
-                    </div>
-                  </div>
-            
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="password">Password</label>
-                      <input type="password" class="form-control" id="password" name="password" required>
-                    </div>
-                  </div>
-            
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="confirmPassword">Confirm Password</label>
-                      <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
-                    </div>
-                  </div>
-            
                 </div>
                 
-                <button type="submit" class="btn btn-primary">Register</button><br>
-
+                <button type="submit" class="btn btn-primary" style="margin-top: 1rem;">Register</button><br>
           
    
               </form>
