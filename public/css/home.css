@@ -604,3 +604,76 @@ color: #878787;
   border-radius: 5px; /* Optional: Add rounded corners */
   color: white; /* Optional: Set text color to white for better contrast */
 }
+
+
+#map-container {
+  height: 900px;
+  width: 100%;
+}
+
+
+h2{
+  text-align: center;
+  color:#bc8b05;
+  font-weight: bold;
+}
+.main-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.text-container,
+.image-container {
+  width: 48%; /* Adjust as needed, leaving a small gap between elements */
+  margin-bottom: 20px; /* Space between image and text */
+}
+
+.text-container p {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #333;
+}
+
+.image-container img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+.promo-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #f7f7f7;
+}
+
+.promo-content {
+  flex: 1;
+}
+
+.promo-content h2 {
+  color: #333;
+}
+
+.promo-content p {
+  color: #555;
+}
+
+.btn-promo {
+ 
+  padding: 10px 20px;
+  background-color: #e0a80f;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-promo:hover {
+  background-color: #b7d648;
+  color:#000;
+}

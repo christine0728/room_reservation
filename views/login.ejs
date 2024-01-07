@@ -42,41 +42,45 @@
     </center>
 </body>
 </html> -->
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aptos:wght@200;300;400;500;600;700&display=swap">
-  <link rel="stylesheet" href="/css/index.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aptos:wght@200;300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
-  <div class="wrapper">
-    <form action="/login-user" method="post">
-      <h2>LOGIN</h2>
-      <center><img class="logo" src="/imgs/cdk.png" alt="Logo" style="border-radius:60px; height:90px; width:90px"></center><br>
-        <% if (error && error.length > 0) { %>
-          <div class="alert alert-danger">
-            <%= error[0] %>
-          </div>
-        <% } %>
-        <div class="input-field">
-          <input type="text" name="email" required>
-          <label>Enter your email</label>
-        </div>
-        <div class="input-field">
-          <input type="password" name="password" required>
-          <label>Enter your password</label>
-        </div>
-       
-        <!-- <button type="submit">Log In</button> -->
-        <input type="submit" class="button" value="Login">
-        <div class="register">
-          <p>Don't have an account? <a href="/register">Register</a></p>
-        </div>
-      </form>
-    </div>
-  </body>
+  
+    <div class="wrapper">
+        <form action="/login-user" method="post">
+            <h2>LOGIN</h2>
+            <center><img class="logo" src="/imgs/cdk.png" alt="Logo" style="border-radius:60px; height:90px; width:90px"></center><br>
+            <% if (error && error.length > 0) { %>
+                <div class="alert alert-danger">
+                    <%= error[0] %>
+                </div>
+            <% } %>
+            <div class="input-field">
+                <input type="text" name="email" required>
+                <label>Enter your email</label>
+            </div>
+            <div class="input-field">
+                <input type="password" name="password" required>
+                <label>Enter your password</label>
+            </div><br><br>
+            <input type="submit" class="button" value="Login">
+            <div class="register">
+                <p>Don't have an account? <a href="/register">Register</a></p>
+            </div>
+        </form>
+    </div><br>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
 </html>
