@@ -487,6 +487,7 @@ exports.filterAvails = (req, res) => {
   });
   
 }
+
 exports.availRoom = (req, res) => {
   // res.json(req.body);
   const roomid = req.params.room_id;
