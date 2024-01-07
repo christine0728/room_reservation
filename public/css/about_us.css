@@ -52,7 +52,8 @@ body {
 
 ul {
   list-style: none;
- 
+  /* Color highlighting when pressed on mobile devices */
+  /*-webkit-tap-highlight-color: transparent;*/
 }
 
 a {
@@ -164,7 +165,6 @@ a {
 
 .nav__link:hover {
   background-color:var(--black-color);
-  color: #e0a80f !important;
 }
 
 
@@ -531,12 +531,14 @@ color: #878787;
 
 
 
+#highlight{
+  color: #e0a80f
+}
+
 
 
 h2{
   text-align: center;
-  color:#bc8b05;
-  font-weight: bold;
 }
 .main-section {
   display: flex;
