@@ -20,7 +20,35 @@
             <h1><b>Reservation</b></h1> 
         </div>
         <div class="col-12">
-            <hr>                    
+            <table id="roomsTbl" class="display">
+                <thead>
+                    <tr>
+                        <th>Full name</th>
+                        <th>Room name</th>
+                        <th>Price per hour</th>
+                        <th>Status</th>
+                        <th>Payment status</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                <% reservs.forEach(res => { %>
+                <tr>
+                    <td><%= res.firstname %> <%= res.firstname %></td>
+                    <td><%= res.room_id %> <%= res.room_type %> </td>
+                    <td><%= res.price_per_hour %> pesos</td>
+                    <td><%= res.status %></td>
+                    <td>
+                        <% if (res.paid == 0) {%>
+                            Unpaid
+                        <% } %>
+                        <% if (res.paid == 1) {%>
+                            Paid
+                        <% } %> 
+                    </td>
+                </tr>
+                <% }); %>
+                </tbody>
+            </table>                    
         </div>
 
         <div class="col-12" id="select" style="overflow-x:auto; margin-top: 2rem;">

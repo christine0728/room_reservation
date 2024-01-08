@@ -478,25 +478,39 @@ exports.home = (req, res) => {
   // res.json(req.body); 
   const client_id = req.params.client_id;
   let roomsavail = "can";
-  const ifsql = "SELECT * FROM reservations WHERE user_id = ?";
-  con.query(ifsql, [client_id], (err, result) => {
-    result.forEach(res => {
-      id = res.id;
-      if (id === null){
-        console.log("okay");
-        roomsavail = "can";
-      }
-      else { 
-        // console.log("di");
-        roomsavail = "cannot";
-      } 
-    }); 
-  }); 
 
-  const sql = "SELECT * FROM rooms";
-  con.query(sql, (err, rooms) => { 
-    res.render("clients/home", { rooms, client_id, roomsavail });
+  const sql = "SELECT reservations.*, rooms.*, users.* " +
+  "FROM reservations " +
+  "INNER JOIN rooms ON reservations.room_id = rooms.room_id " +
+  "INNER JOIN users ON reservations.user_id = users.id where users.id = ?";
+  const sql2 = "SELECT * FROM rooms";
+  con.query(sql, [client_id], (err, reservs) => {
+    if (err) throw err; 
+    con.query(sql2, (err, rooms) => {
+      if (err) throw err; 
+      res.render("clients/home", { reservs, rooms, client_id });
+    });
   });
+
+  // const ifsql = "SELECT * FROM reservations WHERE user_id = ?";
+  // con.query(ifsql, [client_id], (err, result) => {
+  //   result.forEach(res => {
+  //     id = res.id;
+  //     if (id === null){
+  //       console.log("okay");
+  //       roomsavail = "can";
+  //     }
+  //     else { 
+  //       // console.log("di");
+  //       roomsavail = "cannot";
+  //     } 
+  //   }); 
+  // }); 
+
+  // const sql = "SELECT * FROM rooms";
+  // con.query(sql, (err, rooms) => { 
+  //   res.render("clients/home", { rooms, client_id, roomsavail });
+  // });
 }; 
 
 exports.filterAvails = (req, res) => {
@@ -594,7 +608,7 @@ exports.addReservation = (req, res) => {
     "INSERT INTO reservations (room_id, user_id, start_date, end_date, status, created_at) VALUES (?, ?, ?, ?, 'pending', NOW())";
   con.query(sql, [room_id, client_id, start_date, end_date], (err, result) => {
     if (err) {
-      // console.log(err.message);
+      console.log(err.message);
       alert = err.message;
     } else {
       alert = "your message has been recorded";
@@ -610,8 +624,8 @@ exports.viewReservations = (req, res) => {
   const sql =
     "SELECT reservations.*, rooms.*, users.* " +
     "FROM reservations " +
-    "JOIN rooms ON reservations.room_id = rooms.room_id " +
-    "JOIN users ON reservations.user_id = users.id where users.id = ?";
+    "INNER JOIN rooms ON reservations.room_id = rooms.room_id " +
+    "INNER JOIN users ON reservations.user_id = users.id where users.id = ?";
 
   con.query(sql, [client_id], (err, results1) => {
     if (err) {
